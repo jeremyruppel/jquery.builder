@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>jquery builder spec runner</title>
+	<meta name="generator" content="TextMate http://macromates.com/">
+	<meta name="author" content="Jeremy Ruppel">
+	<!-- Date: 2011-03-31 -->
+	<link rel="stylesheet" href="assets/css/jasmine.css" type="text/css" media="screen" title="no title" charset="utf-8">
+</head>
+<body>
+	<!-- jasmine -->
+	<script src="assets/js/jasmine.js" charset="utf-8"></script>
+	<script src="assets/js/jasmine-html.js" charset="utf-8"></script>
+	<!-- jquery -->
+	<script src="../lib/jquery-1.5.2.js" charset="utf-8"></script>
+	<!-- jquery builder -->
+	<script src="../src/jquery.builder.js" charset="utf-8"></script>
+	<!-- specs -->
+	<script src="spec/plugin.js" charset="utf-8"></script>
+	<script src="spec/syntax.js" charset="utf-8"></script>
+	
+	<!-- jasmine runner -->
+  <script type="text/javascript">
+    jasmine.getEnv( ).addReporter( new jasmine.TrivialReporter( ) );
+    jasmine.getEnv( ).execute( );
+  </script>
+</body>
+</html>
