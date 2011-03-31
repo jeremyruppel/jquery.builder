@@ -116,6 +116,92 @@ describe( 'builder syntax', function( )
           expect( two ).toBe( this );
         } );
       } );
+      
+      it( 'should be able to nest blocks in the tag methods', function( )
+      {
+        var block = jasmine.createSpy( );
+        
+        $( '#test' ).build( function( )
+        {
+          this.h1( block );
+        } );
+        
+        expect( block ).toHaveBeenCalled( );
+      } );
+    } );
+    
+    describe( 'builder scope', function( )
+    {
+      it( 'should have a scope property', function( )
+      {
+        var selector = $( '#test' );
+        
+        selector.build( function( )
+        {
+          expect( this.scope ).toBe( selector );
+        } );
+      } );
+      
+      it( 'should change the scope for nested blocks', function( )
+      {
+        $( '#test' ).build( function( )
+        {
+          expect( this.scope.selector ).toEqual( '#test' );
+          
+          this.h1( function( )
+          {
+            expect( this.scope.selector ).toEqual( '#test h1' );
+          } );
+        } );
+      } );
+      
+      it( 'should change the scope back after a nested block', function( )
+      {
+        $( '#test' ).build( function( )
+        {
+          expect( this.scope.selector ).toEqual( '#test' );
+          
+          this.h1( function( )
+          {
+            expect( this.scope.selector ).toEqual( '#test h1' );
+          } );
+          
+          expect( this.scope.selector ).toEqual( '#test' );
+        } );
+      } );
+      
+      it( 'should maintain scope even if youre doing something crazy', function( )
+      {
+        $( '#test' ).build( function( )
+        {
+          expect( this.scope.selector ).toEqual( '#test' );
+          
+          this.div( function( )
+          {
+            expect( this.scope.selector ).toEqual( '#test div' );
+            
+            this.div( function( )
+            {
+              expect( this.scope.selector ).toEqual( '#test div div' );
+              
+              this.div( function( )
+              {
+                expect( this.scope.selector ).toEqual( '#test div div div' );
+              } );
+              
+              expect( this.scope.selector ).toEqual( '#test div div' );
+            } );
+            
+            expect( this.scope.selector ).toEqual( '#test div' );
+          }
+          ).div( 'text' ).h1( function( )
+          {
+            expect( this.scope.selector ).toEqual( '#test h1' );
+          } );
+          
+          expect( this.scope.selector ).toEqual( '#test' );
+        } );
+      } );
     } );
     
   } );

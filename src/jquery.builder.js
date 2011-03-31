@@ -3,7 +3,7 @@
   
   
   
-  var Builder = function( tags )
+  var Builder = function( scope, tags )
   {
     // var self = this;
     
@@ -21,10 +21,31 @@
     //   return self;
     // };
     
-    this.build = function( tag, value, options )
+    this.build = function( tag, value, options, scope )
     {
+      switch( typeof value )
+      {
+        case 'function':
+
+          this.scope = $( tag, scope );
+        
+          value.call( this, this );
+          
+          this.scope = scope;
+          
+          break;
+        
+        case 'string':
+          /*
+            TODO 
+          */
+          break;
+      }
+      
       return this;
     };
+    
+    this.scope = scope;
     
     this.tags = tags;
     
@@ -32,7 +53,7 @@
     {
       this[ tag ] = function( value, options )
       {
-        return this.build( tag, value, options );
+        return this.build( tag, value, options, this.scope );
       };
     }, this ) );
   };
@@ -45,7 +66,7 @@
     {
       case 'function':
         
-        var builder = new Builder( defaults );
+        var builder = new Builder( this, defaults );
 
         value.call( builder, builder );
         
