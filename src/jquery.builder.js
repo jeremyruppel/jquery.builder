@@ -2,9 +2,11 @@
 {
   /**
    * jquery builder
+   * --------------
    *
-   *
-   *
+   * *AKA yet another jquery builder*
+   * 
+   * **jquery builder** is a builder plugin TODO WRITE MORE LATER I WANNA GO DRINK BEER
    */
   var Builder = function( scope, tags )
   {
@@ -72,6 +74,7 @@
   var defaults = 'h1 h2 h3 h4 h5 div input span a'.split( /\s+/ );
   
   // jquery build plugin
+  // -------------------
   $.fn.build = function( value )
   {
     // Accept a couple types of values here, too
