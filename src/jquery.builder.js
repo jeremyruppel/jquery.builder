@@ -23,6 +23,8 @@
     
     this.build = function( tag, value, options, scope )
     {
+      scope.append( '<' + tag + '/>' );
+      
       switch( typeof value )
       {
         case 'function':

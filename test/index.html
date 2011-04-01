@@ -11,6 +11,8 @@
 	<link rel="stylesheet" href="assets/css/jasmine.css" type="text/css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
+	<!-- test node -->
+	<div id="test"></div>
 	<!-- jasmine -->
 	<script src="assets/js/jasmine.js" charset="utf-8"></script>
 	<script src="assets/js/jasmine-html.js" charset="utf-8"></script>
@@ -19,9 +21,15 @@
 	<!-- jquery builder -->
 	<script src="../src/jquery.builder.js" charset="utf-8"></script>
 	<!-- specs -->
+	<script type="text/javascript" charset="utf-8">
+		beforeEach( function( )
+		{
+			$( '#test' ).empty( );
+		} );
+	</script>
 	<script src="spec/plugin.js" charset="utf-8"></script>
 	<script src="spec/syntax.js" charset="utf-8"></script>
-	
+	<script src="spec/building.js" charset="utf-8"></script>
 	<!-- jasmine runner -->
   <script type="text/javascript">
     jasmine.getEnv( ).addReporter( new jasmine.TrivialReporter( ) );
