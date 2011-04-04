@@ -6,7 +6,9 @@
    *
    * *AKA yet another jquery builder*
    * 
-   * **jquery builder** is a builder plugin TODO WRITE MORE LATER I WANNA GO DRINK BEER
+   * **jquery builder** is a jquery plugin for building XML or HTML dynamically.
+   * I couldn't find a builder plugin with the syntax I wanted out there, so here's my version.
+   * See [the project's github page](https://github.com/jeremyruppel/jquery.builder) for more information.
    */
   var Builder = function( scope, tags )
   {
@@ -79,6 +81,7 @@
   */
   var defaults = 'h1 h2 h3 h4 h5 div input span a'.split( /\s+/ );
   
+  // A full list of the tags to support, including custom ones
   var available = defaults.concat( );
   
   // jquery build plugin
@@ -105,10 +108,11 @@
           throw "jquery.builder: cannot add method '" + value + "' to builder because it is already defined";
         }
         
-        available.push( $.trim( value ) );
+        available.push( value );
       
         break;
       
+      // If it's a boolean and it's false, reset the tags list
       case 'boolean' :
       
         if( value === false )
@@ -119,5 +123,4 @@
     // Return jquery for chaining
     return this;
   };
-// Maybe we'll even try this with zepto sometime, who knows?
 } )( jQuery );

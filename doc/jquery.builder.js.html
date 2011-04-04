@@ -37,13 +37,13 @@
 
 <p><em>AKA yet another jquery builder</em></p>
 
-<p><strong>jquery builder</strong> is a builder plugin TODO WRITE MORE LATER I WANNA GO DRINK BEER</p>
+<p><strong>jquery builder</strong> is a jquery plugin for building XML or HTML dynamically.
+I couldn&rsquo;t find a builder plugin with the syntax I wanted out there, so here&rsquo;s my version.
+See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s github page</a> for more information.</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">Builder</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">scope</span><span class="p">,</span> <span class="nx">tags</span> <span class="p">)</span>
-  <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">build</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">scope</span> <span class="p">)</span>
-    <span class="p">{</span></pre></div>
+  <span class="p">{</span></pre></div>
       </td>
     </tr>
     <tr id='section-3'>
@@ -51,16 +51,61 @@
         <div class="pilwrap">
           <a class="pilcrow" href="#section-3">&#182;</a>
         </div>
-        <p>Append the tag</p>
+        <p>The scope to start building on</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>      <span class="nx">scope</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span> <span class="s1">&#39;&lt;&#39;</span> <span class="o">+</span> <span class="nx">tag</span> <span class="o">+</span> <span class="s1">&#39;/&gt;&#39;</span> <span class="p">);</span></pre></div>
+        <div class='highlight'><pre>    <span class="k">this</span><span class="p">.</span><span class="nx">scope</span> <span class="o">=</span> <span class="nx">scope</span><span class="p">;</span>
+    </pre></div>
       </td>
     </tr>
     <tr id='section-4'>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-4">&#182;</a>
+        </div>
+        <p>The list of recognized tags</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="k">this</span><span class="p">.</span><span class="nx">tags</span> <span class="o">=</span> <span class="nx">tags</span><span class="p">;</span>
+    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-5'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-5">&#182;</a>
+        </div>
+        <p>Create a method for each of the tags given</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">$</span><span class="p">(</span> <span class="nx">tags</span> <span class="p">).</span><span class="nx">each</span><span class="p">(</span> <span class="nx">$</span><span class="p">.</span><span class="nx">proxy</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">tag</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="k">this</span><span class="p">[</span> <span class="nx">tag</span> <span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">options</span> <span class="p">)</span>
+      <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">build</span><span class="p">(</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">scope</span> <span class="p">);</span>
+      <span class="p">};</span>
+    <span class="p">},</span> <span class="k">this</span> <span class="p">)</span> <span class="p">);</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">build</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="nx">scope</span> <span class="p">)</span>
+    <span class="p">{</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-6'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-6">&#182;</a>
+        </div>
+        <p>Append the tag</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>      <span class="nx">scope</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span> <span class="s1">&#39;&lt;&#39;</span> <span class="o">+</span> <span class="nx">tag</span> <span class="o">+</span> <span class="s1">&#39;/&gt;&#39;</span> <span class="p">);</span>
+      </pre></div>
+      </td>
+    </tr>
+    <tr id='section-7'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
         <p>Accept a couple types of values</p>
       </td>
@@ -69,10 +114,10 @@
       <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-5'>
+    <tr id='section-8'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-5">&#182;</a>
+          <a class="pilcrow" href="#section-8">&#182;</a>
         </div>
         <p>If it&rsquo;s a function, alter our scope and call it</p>
       </td>
@@ -88,25 +133,25 @@
           <span class="k">break</span><span class="p">;</span></pre></div>
       </td>
     </tr>
-    <tr id='section-6'>
+    <tr id='section-9'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-6">&#182;</a>
+          <a class="pilcrow" href="#section-9">&#182;</a>
         </div>
         <p>If it&rsquo;s a string, add it as text to the node</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>        <span class="k">case</span> <span class="s1">&#39;string&#39;</span><span class="o">:</span>
           
-          <span class="nx">$</span><span class="p">(</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">scope</span> <span class="p">).</span><span class="nx">text</span><span class="p">(</span> <span class="nx">value</span> <span class="p">);</span>
+          <span class="nx">$</span><span class="p">(</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">scope</span> <span class="p">).</span><span class="nx">append</span><span class="p">(</span> <span class="nx">value</span> <span class="p">);</span>
           
           <span class="k">break</span><span class="p">;</span></pre></div>
       </td>
     </tr>
-    <tr id='section-7'>
+    <tr id='section-10'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-7">&#182;</a>
+          <a class="pilcrow" href="#section-10">&#182;</a>
         </div>
         <p>If it&rsquo;s a hash, apply it as attributes to the node</p>
       </td>
@@ -120,10 +165,10 @@
       </pre></div>
       </td>
     </tr>
-    <tr id='section-8'>
+    <tr id='section-11'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-8">&#182;</a>
+          <a class="pilcrow" href="#section-11">&#182;</a>
         </div>
         <p>If the user wanted to pass text <em>and</em> an attribute hash, apply it now</p>
       </td>
@@ -135,58 +180,21 @@
       </pre></div>
       </td>
     </tr>
-    <tr id='section-9'>
+    <tr id='section-12'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-9">&#182;</a>
+          <a class="pilcrow" href="#section-12">&#182;</a>
         </div>
         <p>Return self for chaining</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>      <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
     <span class="p">};</span>
-    </pre></div>
-      </td>
-    </tr>
-    <tr id='section-10'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-10">&#182;</a>
-        </div>
-        <p>The scope to start building on</p>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre>    <span class="k">this</span><span class="p">.</span><span class="nx">scope</span> <span class="o">=</span> <span class="nx">scope</span><span class="p">;</span>
-    </pre></div>
-      </td>
-    </tr>
-    <tr id='section-11'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-11">&#182;</a>
-        </div>
-        <p>The list of recognized tags</p>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre>    <span class="k">this</span><span class="p">.</span><span class="nx">tags</span> <span class="o">=</span> <span class="nx">tags</span><span class="p">;</span>
-    </pre></div>
-      </td>
-    </tr>
-    <tr id='section-12'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-12">&#182;</a>
-        </div>
-        <p>Create a method for each of the tags given</p>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre>    <span class="nx">$</span><span class="p">(</span> <span class="nx">tags</span> <span class="p">).</span><span class="nx">each</span><span class="p">(</span> <span class="nx">$</span><span class="p">.</span><span class="nx">proxy</span><span class="p">(</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">tag</span> <span class="p">)</span>
+    
+    <span class="k">this</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">value</span> <span class="p">)</span>
     <span class="p">{</span>
-      <span class="k">this</span><span class="p">[</span> <span class="nx">tag</span> <span class="p">]</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">options</span> <span class="p">)</span>
-      <span class="p">{</span>
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">build</span><span class="p">(</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">scope</span> <span class="p">);</span>
-      <span class="p">};</span>
-    <span class="p">},</span> <span class="k">this</span> <span class="p">)</span> <span class="p">);</span>
+      <span class="nx">$</span><span class="p">(</span> <span class="k">this</span><span class="p">.</span><span class="nx">scope</span> <span class="p">).</span><span class="nx">append</span><span class="p">(</span> <span class="nx">value</span> <span class="p">);</span>
+    <span class="p">};</span>
   <span class="p">};</span>
   </pre></div>
       </td>
@@ -206,6 +214,18 @@
   </pre></div>
       </td>
     </tr>
+    <tr id='section-14'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-14">&#182;</a>
+        </div>
+        <p>A full list of the tags to support, including custom ones</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">available</span> <span class="o">=</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span> <span class="p">);</span>
+  </pre></div>
+      </td>
+    </tr>
     <tr id='section-jquery_build_plugin'>
       <td class=docs>
         <div class="pilwrap">
@@ -218,10 +238,22 @@
   <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-15'>
+    <tr id='section-16'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-15">&#182;</a>
+          <a class="pilcrow" href="#section-16">&#182;</a>
+        </div>
+        <p>Create our builder instance</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="kd">var</span> <span class="nx">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Builder</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">available</span> <span class="p">);</span>
+    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-17'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-17">&#182;</a>
         </div>
         <p>Accept a couple types of values here, too</p>
       </td>
@@ -230,49 +262,19 @@
     <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-16'>
+    <tr id='section-18'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-16">&#182;</a>
+          <a class="pilcrow" href="#section-18">&#182;</a>
         </div>
         <p>If it&rsquo;s a function, start building!</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>      <span class="k">case</span> <span class="s1">&#39;function&#39;</span><span class="o">:</span>
         
-        <span class="kd">var</span> <span class="nx">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Builder</span><span class="p">(</span> <span class="k">this</span><span class="p">,</span> <span class="nx">defaults</span> <span class="p">);</span>
-
         <span class="nx">value</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">builder</span><span class="p">,</span> <span class="nx">builder</span> <span class="p">);</span>
         
         <span class="k">break</span><span class="p">;</span></pre></div>
-      </td>
-    </tr>
-    <tr id='section-17'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-17">&#182;</a>
-        </div>
-        <p>If it&rsquo;s a string, add it to our custom tags list</p>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre>      <span class="k">case</span> <span class="s1">&#39;string&#39;</span><span class="o">:</span>
-        
-        <span class="nx">defaults</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">$</span><span class="p">.</span><span class="nx">trim</span><span class="p">(</span> <span class="nx">value</span> <span class="p">)</span> <span class="p">);</span>
-      
-        <span class="k">break</span><span class="p">;</span>
-    <span class="p">}</span></pre></div>
-      </td>
-    </tr>
-    <tr id='section-18'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-18">&#182;</a>
-        </div>
-        <p>Return jquery for chaining</p>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre>    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
-  <span class="p">};</span></pre></div>
       </td>
     </tr>
     <tr id='section-19'>
@@ -280,11 +282,51 @@
         <div class="pilwrap">
           <a class="pilcrow" href="#section-19">&#182;</a>
         </div>
-        <p>Maybe we&rsquo;ll even try this with zepto sometime, who knows?</p>
+        <p>If it&rsquo;s a string, add it to our custom tags list</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>      <span class="k">case</span> <span class="s1">&#39;string&#39;</span><span class="o">:</span>
+        
+        <span class="k">if</span><span class="p">(</span> <span class="nx">builder</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span> <span class="nx">value</span> <span class="p">)</span> <span class="p">)</span>
+        <span class="p">{</span>
+          <span class="k">throw</span> <span class="s2">&quot;jquery.builder: cannot add method &#39;&quot;</span> <span class="o">+</span> <span class="nx">value</span> <span class="o">+</span> <span class="s2">&quot;&#39; to builder because it is already defined&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="nx">available</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">value</span> <span class="p">);</span>
+      
+        <span class="k">break</span><span class="p">;</span>
+      </pre></div>
+      </td>
+    </tr>
+    <tr id='section-20'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-20">&#182;</a>
+        </div>
+        <p>If it&rsquo;s a boolean and it&rsquo;s false, reset the tags list</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>      <span class="k">case</span> <span class="s1">&#39;boolean&#39;</span> <span class="o">:</span>
+      
+        <span class="k">if</span><span class="p">(</span> <span class="nx">value</span> <span class="o">===</span> <span class="kc">false</span> <span class="p">)</span>
+        <span class="p">{</span>
+          <span class="nx">available</span> <span class="o">=</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span> <span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-21'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-21">&#182;</a>
+        </div>
+        <p>Return jquery for chaining</p>
 
       </td>
       <td class=code>
-        <div class='highlight'><pre><span class="p">}</span> <span class="p">)(</span> <span class="nx">jQuery</span> <span class="p">);</span></pre></div>
+        <div class='highlight'><pre>    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">}</span> <span class="p">)(</span> <span class="nx">jQuery</span> <span class="p">);</span></pre></div>
       </td>
     </tr>
   </table>
