@@ -1,20 +1,5 @@
 describe( 'builder syntax', function( )
-{
-  // it( 'should look like this', function( )
-  // {
-  //   $( 'body' ).build( function( )
-  //   {
-  //     this.h1( function( )
-  //     {
-  //       this.text( 'Hello, this is builder in action' );
-  //     }
-  //     ).h2( 'test' ).div( function( )
-  //     {
-  //       
-  //     } );
-  //   } );
-  // } );
-  
+{  
   describe( 'when calling build', function( )
   {
     it( 'should execute the build block', function( )

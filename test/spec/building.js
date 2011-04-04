@@ -77,4 +77,80 @@ describe( 'building nodes', function( )
       expect( $( '#test' ).html( ) ).toEqual( '<div class="active">testing!</div>' );
     } );
   } );
+  
+  describe( 'the text method', function( )
+  {
+    it( 'should be defined', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        expect( this.text ).toBeDefined( );
+      } );
+    } );
+    
+    it( 'should add text to the given node', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( function( )
+        {
+          this.text( 'testing!' );
+        } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div>testing!</div>' );
+    } );
+    
+    it( 'can add text to a nested node', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( function( )
+        {
+          this.h1( function( )
+          {
+            this.text( 'hello' );
+          } );
+        } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div><h1>hello</h1></div>' );
+    } );
+    
+    it( 'should allow you to add text to a node with children if you so desire', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( function( )
+        {
+          this.text( 'before' );
+          
+          this.span( function( )
+          {
+            this.text( 'spanned' );
+          } );
+          
+          this.text( 'after' );
+        } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div>before<span>spanned</span>after</div>' );
+    } );
+    
+    it( 'should append text if called multiple times', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( function( )
+        {
+          this.text( 'te' );
+          this.text( 'st' );
+          this.text( 'in' );
+          this.text( 'g!' );
+        } );
+      } );
+
+      expect( $( '#test' ).html( ) ).toEqual( '<div>testing!</div>' );
+    } );
+  } );
 } );

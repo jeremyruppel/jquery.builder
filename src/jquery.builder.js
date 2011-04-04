@@ -14,6 +14,7 @@
     {
       // Append the tag
       scope.append( '<' + tag + '/>' );
+      
       // Accept a couple types of values
       switch( typeof value )
       {
@@ -30,7 +31,7 @@
         // If it's a string, add it as text to the node
         case 'string':
           
-          $( tag, scope ).text( value );
+          $( tag, scope ).append( value );
           
           break;
         // If it's a hash, apply it as attributes to the node
@@ -65,6 +66,12 @@
         return this.build( tag, value, options, this.scope );
       };
     }, this ) );
+    
+    // Define the *text* method
+    this.text = function( value )
+    {
+      $( this.scope ).append( value );
+    };
   };
   
   // A list of default tags to support
