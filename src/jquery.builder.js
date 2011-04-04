@@ -10,6 +10,21 @@
    */
   var Builder = function( scope, tags )
   {
+    // The scope to start building on
+    this.scope = scope;
+    
+    // The list of recognized tags
+    this.tags = tags;
+    
+    // Create a method for each of the tags given
+    $( tags ).each( $.proxy( function( index, tag )
+    {
+      this[ tag ] = function( value, options )
+      {
+        return this.build( tag, value, options, this.scope );
+      };
+    }, this ) );
+    
     this.build = function( tag, value, options, scope )
     {
       // Append the tag
@@ -52,22 +67,6 @@
       return this;
     };
     
-    // The scope to start building on
-    this.scope = scope;
-    
-    // The list of recognized tags
-    this.tags = tags;
-    
-    // Create a method for each of the tags given
-    $( tags ).each( $.proxy( function( index, tag )
-    {
-      this[ tag ] = function( value, options )
-      {
-        return this.build( tag, value, options, this.scope );
-      };
-    }, this ) );
-    
-    // Define the *text* method
     this.text = function( value )
     {
       $( this.scope ).append( value );
@@ -80,27 +79,42 @@
   */
   var defaults = 'h1 h2 h3 h4 h5 div input span a'.split( /\s+/ );
   
+  var available = defaults.concat( );
+  
   // jquery build plugin
   // -------------------
   $.fn.build = function( value )
   {
+    // Create our builder instance
+    var builder = new Builder( this, available );
+    
     // Accept a couple types of values here, too
     switch( typeof value )
     {
       // If it's a function, start building!
       case 'function':
         
-        var builder = new Builder( this, defaults );
-
         value.call( builder, builder );
         
         break;
       // If it's a string, add it to our custom tags list
       case 'string':
         
-        defaults.push( $.trim( value ) );
+        if( builder.hasOwnProperty( value ) )
+        {
+          throw "jquery.builder: cannot add method '" + value + "' to builder because it is already defined";
+        }
+        
+        available.push( $.trim( value ) );
       
         break;
+      
+      case 'boolean' :
+      
+        if( value === false )
+        {
+          available = defaults.concat( );
+        }
     }
     // Return jquery for chaining
     return this;

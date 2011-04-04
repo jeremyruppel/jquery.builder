@@ -77,6 +77,53 @@ describe( 'builder syntax', function( )
           expect( this.tags ).toContain( 'custom' );
         } );
       } );
+      
+      it( 'should let the user clear the custom tags by passing null to the build method', function( )
+      {
+        $( '#test' ).build( 'custom' );
+        
+        $( '#test' ).build( function( )
+        {
+          expect( this.tags ).toContain( 'custom' );
+        } );
+        
+        $( '#test' ).build( false );
+        
+        $( '#test' ).build( function( )
+        {
+          expect( this.tags ).not.toContain( 'custom' );
+        } );
+      } );
+      
+      it( 'should then have a custom method', function( )
+      {
+        $( '#test' ).build( 'custom' );
+        
+        $( '#test' ).build( function( )
+        {
+          this.custom( 'awesome sauce' );
+        } );
+        
+        expect( $( '#test' ).html( ) ).toEqual( '<custom>awesome sauce</custom>' );
+      } );
+      
+      it( 'should not allow the user to overwrite the build method', function( )
+      {
+        expect( function( )
+        {
+          $( '#test' ).build( 'build' );
+        }
+        ).toThrow( "jquery.builder: cannot add method 'build' to builder because it is already defined" );
+      } );
+      
+      it( 'should not allow the user to overwrite the text method', function( )
+      {
+        expect( function( )
+        {
+          $( '#test' ).build( 'text' );
+        }
+        ).toThrow( "jquery.builder: cannot add method 'text' to builder because it is already defined" );
+      } );
     } );
     
     describe( 'chaining tag methods', function( )
