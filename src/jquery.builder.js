@@ -9,6 +9,12 @@
    * **jquery builder** is a jquery plugin for building XML or HTML dynamically.
    * I couldn't find a builder plugin with the syntax I wanted out there, so here's my version.
    * See [the project's github page](https://github.com/jeremyruppel/jquery.builder) for more information.
+   *
+   * **Contributors:**
+   *
+   * - [Jeremy Ruppel](https://github.com/jeremyruppel) *Author*
+   *
+   * - [Paulo Gabriel Poiati](https://github.com/poiati)
    */
   var Builder = function( scope, tags )
   {
