@@ -29,10 +29,11 @@
     
     this.build = function( tag, value, options, scope )
     {
-      var tagReference = $( '<' + tag + '/>' )
+      // Create reference to the new tag
+      var tagReference = $( '<' + tag + '/>' );
       
       // Append the tag
-      scope.append(tagReference);
+      scope.append( tagReference );
       
       // Accept a couple types of values
       switch( typeof value )
