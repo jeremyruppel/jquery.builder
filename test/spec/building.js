@@ -53,6 +53,17 @@ describe( 'building nodes', function( )
       
       expect( $( '#test' ).html( ) ).toEqual( '<h1>testing!</h1>' );
     } );
+    
+    it( 'should be able to add text to more than a node respectively without side effects', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.h1( 'testing!' );
+        this.h1( 'it works!' );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<h1>testing!</h1><h1>it works!</h1>' );
+    } );
   } );
   
   describe( 'node options', function( )
@@ -75,6 +86,28 @@ describe( 'building nodes', function( )
       } );
       
       expect( $( '#test' ).html( ) ).toEqual( '<div class="active">testing!</div>' );
+    } );
+    
+    it( 'should properly associate attributes with respective elements when using options', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( { 'class' : 'active' } );
+        this.div( { 'class' : 'inactive' } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div class="active"></div><div class="inactive"></div>' );
+    } );
+    
+    it( 'should properly associate attributes with respective elements when using text and options', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( 'testing!', { 'class' : 'active' } );
+        this.div( 'testing!', { 'class' : 'inactive' } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div class="active">testing!</div><div class="inactive">testing!</div>' );
     } );
   } );
   

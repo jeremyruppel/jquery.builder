@@ -29,8 +29,10 @@
     
     this.build = function( tag, value, options, scope )
     {
+      var tagReference = $( '<' + tag + '/>' )
+      
       // Append the tag
-      scope.append( '<' + tag + '/>' );
+      scope.append(tagReference);
       
       // Accept a couple types of values
       switch( typeof value )
@@ -48,13 +50,13 @@
         // If it's a string, add it as text to the node
         case 'string':
           
-          $( tag, scope ).append( value );
+          tagReference.append( value );
           
           break;
         // If it's a hash, apply it as attributes to the node
         case 'object' :
         
-          $( tag, scope ).attr( value );
+          tagReference.attr( value );
         
           break;
       }
@@ -62,7 +64,7 @@
       // If the user wanted to pass text *and* an attribute hash, apply it now
       if( typeof options === 'object' )
       {
-        $( tag, scope ).attr( options );
+        tagReference.attr( options );
       }
       
       // Return self for chaining
