@@ -11,20 +11,20 @@ Usage
 
 To start building, use the `build` method. You can give this build method a block.
 
-  $( '#context' ).build( function( )
-  {
-    this.div( 'hello!' );
-  } );
-  
-  $( '#context' ).html( ); // => <div>hello!</div>
+	$( '#context' ).build( function( )
+	{
+		this.div( 'hello!' );
+	} );
+	
+	$( '#context' ).html( ); // => <div>hello!</div>
 
 In this block and any child blocks, `this` refers to the builder instance. The same builder
 instance will also be passed to the block if you want to name the reference.
 
-  $( '#context' ).build( function( b )
-  {
-    b.div( 'hello!' );
-  } );
+	$( '#context' ).build( function( b )
+	{
+		b.div( 'hello!' );
+	} );
 
 The builder object has a method for every common html tag, but you can add your own tag 
 methods easily (more on that later).
