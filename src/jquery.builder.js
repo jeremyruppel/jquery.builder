@@ -60,6 +60,12 @@
           tagReference.append( value );
           
           break;
+        // If it's a number, add it as text to the node
+        case 'number':
+          
+          tagReference.append( value );
+          
+          break;
         // If it's a hash, apply it as attributes to the node
         case 'object' :
         

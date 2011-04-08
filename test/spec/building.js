@@ -71,6 +71,16 @@ describe( 'building nodes', function( )
       expect( $( '#test' ).html( ) ).toEqual( '<h1>testing!</h1>' );
     } );
     
+    it( 'should be able to add number to a node', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.h1( 123 );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<h1>123</h1>' );
+    } );
+    
     it( 'should be able to add text to more than a node respectively without side effects', function( )
     {
       $( '#test' ).build( function( )
@@ -109,11 +119,11 @@ describe( 'building nodes', function( )
     {
       $( '#test' ).build( function( )
       {
-        this.div( { 'class' : 'active' } );
-        this.div( { 'class' : 'inactive' } );
+        this.div( 123, { 'class' : 'active' } );
+        this.div( 456, { 'class' : 'inactive' } );
       } );
       
-      expect( $( '#test' ).html( ) ).toEqual( '<div class="active"></div><div class="inactive"></div>' );
+      expect( $( '#test' ).html( ) ).toEqual( '<div class="active">123</div><div class="inactive">456</div>' );
     } );
     
     it( 'should properly associate attributes with respective elements when using text and options', function( )
@@ -149,6 +159,19 @@ describe( 'building nodes', function( )
       } );
       
       expect( $( '#test' ).html( ) ).toEqual( '<div>testing!</div>' );
+    } );
+    
+    it( 'should add number as a text to the given node', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( function( )
+        {
+          this.text( 123 );
+        } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div>123</div>' );
     } );
     
     it( 'can add text to a nested node', function( )
