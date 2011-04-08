@@ -94,7 +94,7 @@
   /*
     TODO need to make this list a little more legit. 
   */
-  var defaults = 'h1 h2 h3 h4 h5 div input span a'.split( /\s+/ );
+  var defaults = 'h1 h2 h3 h4 h5 div input span a ul li table tbody thead th tr td'.split( /\s+/ );
   
   // A full list of the tags to support, including custom ones
   var available = defaults.concat( );
