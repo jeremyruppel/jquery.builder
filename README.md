@@ -29,3 +29,61 @@ instance will also be passed to the block if you want to name the reference.
 The builder object has a method for every common html tag, but you can add your own tag 
 methods easily (more on that later).
 
+For building node hierarchies, you can give any tag method a block and the builder will adjust
+its scope appropriately:
+
+	$( '#context' ).build( function( )
+	{
+		this.div( function( )
+		{
+			this.div( 'nested' );
+		} );
+		
+		this.span( function( )
+		{
+			this.a( 'hierarchy' );
+		} );
+	} );
+	
+	$( '#context' ).html( ); // => <div><div>nested</div></div><span><a>hierarchy</a></span>
+
+Scope can be nested as deeply as you want. Go crazy.
+
+You can pass a hash of options to any tag method and those key-value pairs will be added as
+attributes to the created node.
+
+	$( '#context' ).build( function( )
+	{
+		this.a( { href : 'github.com' } );
+	} );
+	
+	$( '#context' ).html( ); // => <a href="github.com"></a>
+
+The options hash may also be passed after the node text, like:
+
+	$( '#context' ).build( function( )
+	{
+		this.a( 'github rules', { href : 'github.com' } );
+	} );
+
+	$( '#context' ).html( ); // => <a href="github.com">github rules</a>
+
+Custom Tags
+-----------
+
+If you're building XML, you're going to need some custom tags. **jquery.builder** can be set up
+to build any tag that isn't a reserved word. Just pass your tag name to the `build` method and
+it will be available on any new builders.
+
+	$( '#context' ).build( 'custom' );
+	
+	$( '#context' ).build( function( )
+	{
+		this.custom( 'sweet' );
+	} );
+	
+	$( '#context' ).html( ); // => <custom>sweet</custom>
+
+If at any point you need to reset the tag list to the defaults, just pass *false* to the `build` method.
+
+Right now, custom tags are shared between all builder instances regardless of their context node.
