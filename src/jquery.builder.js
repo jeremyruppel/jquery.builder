@@ -54,13 +54,8 @@
           this.scope = scope;
 
           break;
-        // If it's a string, add it as text to the node
+        // If it's a string or number, add it as text to the node
         case 'string':
-          
-          tagReference.append( value );
-          
-          break;
-        // If it's a number, add it as text to the node
         case 'number':
           
           tagReference.append( value );
