@@ -47,7 +47,7 @@
         // If it's a function, alter our scope and call it
         case 'function':
 
-          this.scope = $( tag, scope );
+          this.scope = tagReference;
         
           value.call( this, this );
           

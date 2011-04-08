@@ -40,6 +40,23 @@ describe( 'building nodes', function( )
       expect( $( '#test' ).html( ) ).toEqual( '<h1></h1><div><div><span></span></div><div></div></div>' );
     } );
     
+    it( 'should nest nodes when using blocks without affecting other contexts', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( function( )
+        {
+          this.span( 'hello' );
+        } );
+        this.div( function( )
+        {
+          this.span( 'there' );
+        } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div><span>hello</span></div><div><span>there</span></div>' );
+    } );
+    
   } );
   
   describe( 'text nodes', function( )

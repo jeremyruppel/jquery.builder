@@ -182,7 +182,7 @@ describe( 'builder syntax', function( )
           
           this.h1( function( )
           {
-            expect( this.scope.selector ).toEqual( '#test h1' );
+            expect( this.scope[0].outerHTML ).toEqual( '<h1></h1>' );
           } );
         } );
       } );
@@ -195,7 +195,7 @@ describe( 'builder syntax', function( )
           
           this.h1( function( )
           {
-            expect( this.scope.selector ).toEqual( '#test h1' );
+            expect( this.scope[0].outerHTML ).toEqual( '<h1></h1>' );
           } );
           
           expect( this.scope.selector ).toEqual( '#test' );
@@ -210,25 +210,25 @@ describe( 'builder syntax', function( )
           
           this.div( function( )
           {
-            expect( this.scope.selector ).toEqual( '#test div' );
+            expect( this.scope[0].outerHTML ).toEqual( '<div></div>' );
             
             this.div( function( )
             {
-              expect( this.scope.selector ).toEqual( '#test div div' );
+              expect( this.scope[0].outerHTML ).toEqual( '<div></div>' );
               
               this.div( function( )
               {
-                expect( this.scope.selector ).toEqual( '#test div div div' );
+                expect( this.scope[0].outerHTML ).toEqual( '<div></div>' );
               } );
               
-              expect( this.scope.selector ).toEqual( '#test div div' );
+              expect( this.scope[0].outerHTML ).toEqual( '<div><div></div></div>' );
             } );
             
-            expect( this.scope.selector ).toEqual( '#test div' );
+            expect( this.scope[0].outerHTML ).toEqual( '<div><div><div></div></div></div>' );
           }
           ).div( 'text' ).h1( function( )
           {
-            expect( this.scope.selector ).toEqual( '#test h1' );
+            expect( this.scope[0].outerHTML ).toEqual( '<h1></h1>' );
           } );
           
           expect( this.scope.selector ).toEqual( '#test' );
