@@ -92,7 +92,8 @@ describe( 'when using expressions', function( )
         {
           this( 'li', function ( ) 
           {
-            this.a( function ( ) {
+            this.a( function ( ) 
+            {
               this.text( 'Hello World' );
             }, { class: 'text' } );
           } );

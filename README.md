@@ -87,3 +87,24 @@ it will be available on any new builders.
 If at any point you need to reset the tag list to the defaults, just pass *false* to the `build` method.
 
 Right now, custom tags are shared between all builder instances regardless of their context node.
+
+Expressions syntax
+-----------
+
+Expressions is the easiest way to create nested elements. Using it you don't need to specify a function to every nested object. You can also mix expressions style with the standard builder style.
+
+  $( '#context' ).build( function( )
+  {
+    this( 'body div ul', function ( ) 
+    {
+      this( 'li', function ( ) 
+      {
+        this.a( function ( ) 
+        {
+          this.text( 'Hello World' );
+        }, { class: 'text' } );
+      } );
+    } );
+  } );
+  
+  $( '#context' ).html( ); // '<body><div><ul><li><a class="text">Hello World</a></li></ul></div></body>'
