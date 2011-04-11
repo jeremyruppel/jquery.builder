@@ -16,13 +16,18 @@
  */
 ( function( $ )
 {
-  var Builder = function( scope, tags )
+  var _builder = function( scope, tags )
   {
+    var _that = function ( expression, value, options ) 
+    { 
+      _that.build( expression, value, options, _that.scope );
+    };
+    
     // The scope to start building on
-    this.scope = scope;
+    _that.scope = scope;
     
     // The list of recognized tags
-    this.tags = tags;
+    _that.tags = tags;
     
     // Create a method for each of the tags given
     $( tags ).each( $.proxy( function( index, tag )
@@ -31,40 +36,40 @@
       {
         return this.build( tag, value, options, this.scope );
       };
-    }, this ) );
+    }, null, _that ) );
     
-    this.build = function( tag, value, options, scope )
+    _that.build = function( expression, value, options, scope )
     {
-      // Create reference to the new tag
-      var tagReference = $( '<' + tag + '/>' );
       
-      // Append the tag
-      scope.append( tagReference );
+      // Create reference to the new tag
+      var tagReference = _createTagReference( expression );
+      
+      _that.scope.append( tagReference.root )
       
       // Accept a couple types of values
       switch( typeof value )
       {
         // If it's a function, alter our scope and call it
         case 'function':
-
-          this.scope = tagReference;
         
-          value.call( this, this );
+          _that.scope = tagReference.innermost;
           
-          this.scope = scope;
-
+          value.call( _that, _that );
+          
+          _that.scope = scope;
+          
           break;
         // If it's a string or number, add it as text to the node
         case 'string':
         case 'number':
           
-          tagReference.append( value );
+          tagReference.innermost.append( value );
           
           break;
         // If it's a hash, apply it as attributes to the node
         case 'object' :
         
-          tagReference.attr( value );
+          tagReference.innermost.attr( value );
         
           break;
       }
@@ -72,18 +77,78 @@
       // If the user wanted to pass text *and* an attribute hash, apply it now
       if( typeof options === 'object' )
       {
-        tagReference.attr( options );
+        tagReference.innermost.attr( options );
       }
       
       // Return self for chaining
-      return this;
+      return _that;
     };
     
-    this.text = function( value )
+    // Check if this is a complex ( more than one tag ) or simple expression and if is
+    // complex return the outermost and innermost element
+    function _createTagReference( expression )
     {
-      $( this.scope ).append( value );
+      var expr = _expression( expression );
+      var root = null, innermost = null;
+      
+      if ( !expr.isComplex( ) )
+      {
+        innermost = root = $( '<' + expression + '/>' );
+        return { root: root, innermost: innermost }
+      }
+
+      expr.eachTag( function( tag )
+      {
+        if ( !innermost )
+        {
+          innermost = root = $( '<' + tag + '/>' );
+        }          
+        else
+        {
+          innermost = $( '<' + tag + '/>' ).appendTo( innermost );
+        }
+      } );
+
+      return { root: root, innermost: innermost };
+    }
+    
+    _that.text = function( value )
+    {
+      $( _that.scope ).append( value );
     };
+    
+    return _that;
   };
+  
+  var _expression = function( value )
+  {
+    var _that = { },
+        _tags = [ ]
+    
+    function _parse( value ) 
+    {
+      if ( !value ) 
+        throw new Error('Invalid expression: empty or null');
+      _tags = value.split(/\s+/);
+    }
+    
+    function _isComplex( ) 
+    {
+      return _tags.length > 1;
+    }
+    
+    function _eachTag( fn )
+    {
+      return $( _tags ).each( function( ) { fn.call( null, String( this ) ) } );
+    }
+    
+    _parse( value )
+    
+    _that.isComplex = _isComplex;
+    _that.eachTag   = _eachTag;
+    
+    return _that
+  }
   
   // A list of default tags to support
   /*
@@ -99,14 +164,13 @@
   $.fn.build = function( value )
   {
     // Create our builder instance
-    var builder = new Builder( this, available );
+    var builder = _builder( this, available );
     
     // Accept a couple types of values here, too
     switch( typeof value )
     {
       // If it's a function, start building!
       case 'function':
-        
         value.call( builder, builder );
         
         break;

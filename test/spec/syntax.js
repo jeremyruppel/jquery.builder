@@ -40,7 +40,7 @@ describe( 'builder syntax', function( )
   } );
   
   describe( 'when inside the builder context', function( )
-  {
+  { 
     describe( 'the builder object', function( )
     {
       it( 'should have a tags property', function( )
