@@ -93,18 +93,15 @@ Expressions syntax
 
 Expressions is the easiest way to create nested elements. Using it you don't need to specify a function to every nested object. You can also mix expressions style with the standard builder style.
 
-  $( '#context' ).build( function( )
-  {
-    this( 'body div ul', function ( ) 
+    $( '#context' ).build( function( )
     {
-      this( 'li', function ( ) 
+      this( 'body div ul', function ( ) 
       {
-        this.a( function ( ) 
+        this( 'li', function ( ) 
         {
-          this.text( 'Hello World' );
-        }, { class: 'text' } );
+          this.a( function ( ) { this.text( 'Hello World' ); }, { class: 'text' } );
+        } );
       } );
     } );
-  } );
   
-  $( '#context' ).html( ); // '<body><div><ul><li><a class="text">Hello World</a></li></ul></div></body>'
+    $( '#context' ).html( ); // <body><div><ul><li><a class="text">Hello World</a></li></ul></div></body>
