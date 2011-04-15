@@ -226,4 +226,99 @@ describe( 'building nodes', function( )
       expect( $( '#test' ).html( ) ).toEqual( '<div>testing!</div>' );
     } );
   } );
+
+  describe( 'the attr method', function( ) 
+  {
+    it( 'should be defined', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        expect( this.attr ).toBeDefined( );
+      } );
+    } );
+    
+    it( 'should add attribute to the given node', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( function( )
+        {
+          this.attr( 'do', 'testing!' );
+        } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div do="testing!"></div>' );
+    } );
+    
+    it( 'should add number as a attribute to the given node', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( function( )
+        {
+          this.attr( 'number', 123 );
+        } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div number="123"></div>' );
+    } );
+    
+    it( 'can add attribute to a nested node', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( function( )
+        {
+          this.h1( function( )
+          {
+            this.attr( 'greetings', 'hello' );
+          } );
+        } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div><h1 greetings="hello"></h1></div>' );
+    } );
+    
+    it( 'should add two attributes to the given node', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( function( )
+        {
+          this.attr( 'number', 123 );
+          this.attr( 'text', '456' );
+        } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div number="123" text="456"></div>' );
+    } );
+    
+    it( 'should replace an already defined attribute', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( function( )
+        {
+          this.attr( 'hello', 'there' );
+          this.attr( 'hello', 'world' );
+        } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div hello="world"></div>' );
+    } );
+    
+    it( 'should work with the text method', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( function( )
+        {
+          this.attr( 'hello', 'world' );
+          this.text( 'hi!!!' );
+        } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div hello="world">hi!!!</div>' );
+    } );
+  } );
 } );

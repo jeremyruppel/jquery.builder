@@ -115,7 +115,12 @@
     _that.text = function( value )
     {
       $( _that.scope ).append( value );
-    };
+    }
+    
+    _that.attr = function( name, value )
+    {
+      $( _that.scope ).attr( name, value );
+    }
     
     return _that;
   };

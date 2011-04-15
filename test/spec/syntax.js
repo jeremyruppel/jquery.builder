@@ -124,6 +124,15 @@ describe( 'builder syntax', function( )
         }
         ).toThrow( "jquery.builder: cannot add method 'text' to builder because it is already defined" );
       } );
+      
+      it( 'should not allow the user to overwrite the attr method', function( )
+      {
+        expect( function( )
+        {
+          $( '#test' ).build( 'attr' );
+        }
+        ).toThrow( "jquery.builder: cannot add method 'attr' to builder because it is already defined" );
+      } );
     } );
     
     describe( 'chaining tag methods', function( )
