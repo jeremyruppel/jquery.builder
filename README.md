@@ -88,7 +88,7 @@ If at any point you need to reset the tag list to the defaults, just pass *false
 
 Right now, custom tags are shared between all builder instances regardless of their context node.
 
-Expressions syntax
+Expressions Syntax
 -----------
 
 Expressions is the easiest way to create nested elements. Using it you don't need to specify a function to every nested object. You can also mix expressions style with the standard builder style.
