@@ -102,5 +102,19 @@ describe( 'when using expressions', function( )
 
       expect( $( '#test' ).html( ) ).toEqual( '<body><div><ul><li><a class="text">Hello World</a></li></ul></div></body>' );
     } );
+    
+    it ( 'should work with any string (not only HTML tags)', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this( 'foo bar', function ( ) 
+        {
+          this( 'baz', 'Hello World' );
+        } );
+      } );
+
+      expect( $( '#test' ).html( ) ).toEqual( '<foo><bar><baz>Hello World</baz></bar></foo>' );
+    } );
+    
   } );
 } );
