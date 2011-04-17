@@ -41,4 +41,9 @@ namespace :release do
 end
 
 desc "Generate release files"
-task :release => [ :'release:clear', :'release:debug', :'release:minify', :docco ]
+task :release => [ :'release:clear', :'release:debug', :'release:minify', :docco ] do
+  `git add bin/jquery.builder.js`
+  `git add bin/jquery.builder.min.js`
+  `git add doc.jquery.builder.js.html`
+  `git commit -m 'generate release files'`
+end
