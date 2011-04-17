@@ -42,12 +42,25 @@
       };
     }, null, self ) );
     
+    // Adds raw text to the builder's current scope
+    self.text = function( value )
+    {
+      $( self.scope ).append( value );
+    };
+    
+    // Adds an attribute to the builder's current scope
+    self.attr = function( name, value )
+    {
+      $( self.scope ).attr( name, value );
+    };
+    
     // Generic build method to build onto a builder's current scope
     self.build = function( expression, value, options, scope )
     {
       // Create reference to the new tag
-      var tagReference = _createTagReference( expression );
+      var tagReference = new TagReference( expression );
       
+      // Add the new tag to the current scope
       self.scope.append( tagReference.root );
       
       // Accept a couple types of values
@@ -56,10 +69,13 @@
         // If it's a function, alter our scope and call it
         case 'function':
         
+          // Change scope
           self.scope = tagReference.innermost;
           
+          // Call the block
           value.call( self, self );
           
+          // Revert the scope back
           self.scope = scope;
           
           break;
@@ -88,45 +104,35 @@
       return self;
     };
     
-    // Check if this is a complex ( more than one tag ) or simple expression and if is
-    // complex return the outermost and innermost element
-    function _createTagReference( expression )
+    return self;
+  };
+  
+  // Check if this is a complex ( more than one tag ) or simple expression and if is
+  // complex return the outermost and innermost element
+  var TagReference = function( expression )
+  {
+    var expr = _expression( expression );
+    var root = null, innermost = null;
+    
+    if ( !expr.isComplex( ) )
     {
-      var expr = _expression( expression );
-      var root = null, innermost = null;
-      
-      if ( !expr.isComplex( ) )
-      {
-        innermost = root = $( '<' + expression + '/>' );
-        return { root : root, innermost : innermost };
-      }
-
-      expr.eachTag( function( tag )
-      {
-        if ( !innermost )
-        {
-          innermost = root = $( '<' + tag + '/>' );
-        }          
-        else
-        {
-          innermost = $( '<' + tag + '/>' ).appendTo( innermost );
-        }
-      } );
-
+      innermost = root = $( '<' + expression + '/>' );
       return { root : root, innermost : innermost };
     }
-    
-    self.text = function( value )
+
+    expr.eachTag( function( tag )
     {
-      $( self.scope ).append( value );
-    };
-    
-    self.attr = function( name, value )
-    {
-      $( self.scope ).attr( name, value );
-    };
-    
-    return self;
+      if ( !innermost )
+      {
+        innermost = root = $( '<' + tag + '/>' );
+      }          
+      else
+      {
+        innermost = $( '<' + tag + '/>' ).appendTo( innermost );
+      }
+    } );
+
+    return { root : root, innermost : innermost };
   };
   
   var _expression = function( value )
