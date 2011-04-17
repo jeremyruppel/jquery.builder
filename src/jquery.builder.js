@@ -61,13 +61,13 @@
     };
     
     // Generic build method to build onto a builder's current scope
-    self.build = function( expression, value, options, scope )
+    self.build = function( expr, value, options, scope )
     {
       // Create reference to the new tag
-      var tagReference = new TagReference( expression );
+      var expression = new Expression( expr );
       
       // Add the new tag to the current scope
-      self.scope.append( tagReference.root );
+      self.scope.append( expression.root );
       
       // Accept a couple types of values
       switch( typeof value )
@@ -76,7 +76,7 @@
         case 'function':
         
           // Change scope
-          self.scope = tagReference.innermost;
+          self.scope = expression.innermost;
           
           // Call the block
           value.call( self, self );
@@ -89,13 +89,13 @@
         case 'string':
         case 'number':
           
-          tagReference.innermost.append( value );
+          expression.innermost.append( value );
           
           break;
         // If it's a hash, apply it as attributes to the node
         case 'object' :
         
-          tagReference.innermost.attr( value );
+          expression.innermost.attr( value );
         
           break;
       }
@@ -103,7 +103,7 @@
       // If the user wanted to pass text *and* an attribute hash, apply it now
       if( typeof options === 'object' )
       {
-        tagReference.innermost.attr( options );
+        expression.innermost.attr( options );
       }
       
       // Return self for chaining
@@ -115,43 +115,7 @@
   };
   
   /**
-   * TagReference class, unifies API for builder when working with expressions or single tags
-   */
-   /*
-    TODO refactor TagReference and Expression into same object
-   */
-  var TagReference = function( expression )
-  {
-    // Check if this is a complex ( more than one tag ) or simple expression and if is
-    // complex return the outermost and innermost element
-    var expr = new Expression( expression );
-    var root = null, innermost = null;
-    
-    // If the expression is not complex, i.e. has only one tag, create it and return
-    if ( !expr.isComplex( ) )
-    {
-      innermost = root = $( '<' + expression + '/>' );
-      return { root : root, innermost : innermost };
-    }
-
-    // Else, create all of the tags in the expression and assign the root and innermost tag appropriately
-    expr.eachTag( function( tag )
-    {
-      if ( !innermost )
-      {
-        innermost = root = $( '<' + tag + '/>' );
-      }          
-      else
-      {
-        innermost = $( '<' + tag + '/>' ).appendTo( innermost );
-      }
-    } );
-
-    return { root : root, innermost : innermost };
-  };
-  
-  /**
-   * Expression class, allows creation of multiple nested tags through a simple syntax
+   * Expression class, unifies API for builder when working with expressions or single tags
    */
   var Expression = function( value )
   {
@@ -161,20 +125,27 @@
       throw new Error( 'Invalid expression: empty or null' );
     }
     
+    // Builds a jquery selector for a given tag name
+    var makeTag = function( name )
+    {
+      return $( '<' + name + '/>' );
+    };
+    
     // Tags in an expression are separated by whitespace
     var tags = value.split( /\s+/ );
     
-    // Whether or not this expression is complex, i.e. has more than one tag
-    this.isComplex = function( )
-    {
-      return tags.length > 1;
-    };
+    // Define the root tag
+    this.root = makeTag( tags.shift( ) );
     
-    // Sugar method to iterate over the tags in this expression
-    this.eachTag = function( fn )
+    // If there is only one tag, the innermost tag *is* the root tag
+    this.innermost = this.root;
+    
+    // If there are more tags left, tack them onto the root and alter the innermost tag reference
+    $( tags ).each( $.proxy( function( index, tag )
     {
-      return $( tags ).each( function( ) { fn.call( null, String( this ) ); } );
-    };
+      this.innermost = makeTag( tag ).appendTo( this.innermost );
+    },
+    this ) );
   };
   
   // A list of default tags to support
