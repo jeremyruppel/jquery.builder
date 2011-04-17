@@ -16,18 +16,22 @@
  */
 ( function( $ )
 {
-  var _builder = function( scope, tags )
+  /**
+   * Builder class, provides builder API
+   */
+  var Builder = function( scope, tags )
   {
-    var _that = function ( expression, value, options ) 
+    // Shortcut to build method for expression-style building
+    var self = function ( expression, value, options ) 
     { 
-      _that.build( expression, value, options, _that.scope );
+      self.build( expression, value, options, self.scope );
     };
     
     // The scope to start building on
-    _that.scope = scope;
+    self.scope = scope;
     
     // The list of recognized tags
-    _that.tags = tags;
+    self.tags = tags;
     
     // Create a method for each of the tags given
     $( tags ).each( $.proxy( function( index, tag )
@@ -36,15 +40,15 @@
       {
         return this.build( tag, value, options, this.scope );
       };
-    }, null, _that ) );
+    }, null, self ) );
     
-    _that.build = function( expression, value, options, scope )
+    // Generic build method to build onto a builder's current scope
+    self.build = function( expression, value, options, scope )
     {
-      
       // Create reference to the new tag
       var tagReference = _createTagReference( expression );
       
-      _that.scope.append( tagReference.root );
+      self.scope.append( tagReference.root );
       
       // Accept a couple types of values
       switch( typeof value )
@@ -52,11 +56,11 @@
         // If it's a function, alter our scope and call it
         case 'function':
         
-          _that.scope = tagReference.innermost;
+          self.scope = tagReference.innermost;
           
-          value.call( _that, _that );
+          value.call( self, self );
           
-          _that.scope = scope;
+          self.scope = scope;
           
           break;
         // If it's a string or number, add it as text to the node
@@ -81,7 +85,7 @@
       }
       
       // Return self for chaining
-      return _that;
+      return self;
     };
     
     // Check if this is a complex ( more than one tag ) or simple expression and if is
@@ -112,17 +116,17 @@
       return { root : root, innermost : innermost };
     }
     
-    _that.text = function( value )
+    self.text = function( value )
     {
-      $( _that.scope ).append( value );
+      $( self.scope ).append( value );
     };
     
-    _that.attr = function( name, value )
+    self.attr = function( name, value )
     {
-      $( _that.scope ).attr( name, value );
+      $( self.scope ).attr( name, value );
     };
     
-    return _that;
+    return self;
   };
   
   var _expression = function( value )
@@ -169,7 +173,7 @@
   $.fn.build = function( value )
   {
     // Create our builder instance
-    var builder = _builder( this, available );
+    var builder = new Builder( this, available );
     
     // Accept a couple types of values here, too
     switch( typeof value )
