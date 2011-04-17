@@ -21,6 +21,16 @@ describe( 'when using expressions', function( )
   
   describe( 'to build node', function( ) 
   {
+    it( 'should be able to build expressions through a call to build', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.build( 'div div p' );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div><div><p></p></div></div>' );
+    } );
+    
     it ( 'should build simple tags', function( )
     {
       $( '#test' ).build( function( )

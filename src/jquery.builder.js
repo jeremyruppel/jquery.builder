@@ -152,38 +152,29 @@
    */
   var Expression = function( value )
   {
-    var _that = { },
-        _tags = [ ];
-    
-    function _parse( value ) 
+    // Null check for the expression value
+    if( !value )
     {
-      if ( !value ) 
-        throw new Error('Invalid expression: empty or null');
-      _tags = value.split(/\s+/);
+      throw new Error( 'Invalid expression: empty or null' );
     }
     
-    function _isComplex( ) 
+    // Tags in an expression are separated by whitespace
+    var tags = value.split( /\s+/ );
+    
+    // Whether or not this expression is complex, i.e. has more than one tag
+    this.isComplex = function( )
     {
-      return _tags.length > 1;
-    }
+      return tags.length > 1;
+    };
     
-    function _eachTag( fn )
+    // Sugar method to iterate over the tags in this expression
+    this.eachTag = function( fn )
     {
-      return $( _tags ).each( function( ) { fn.call( null, String( this ) ); } );
-    }
-    
-    _parse( value );
-    
-    _that.isComplex = _isComplex;
-    _that.eachTag   = _eachTag;
-    
-    return _that;
+      return $( tags ).each( function( ) { fn.call( null, String( this ) ); } );
+    };
   };
   
   // A list of default tags to support
-  /*
-    TODO need to make this list a little more legit. 
-  */
   var defaults = 'h1 h2 h3 h4 h5 div input span a ul li table tbody thead th tr td label hr'.split( /\s+/ );
   
   // A full list of the tags to support, including custom ones
