@@ -95,7 +95,8 @@ describe( 'when using expressions', function( )
             this.a( function ( ) 
             {
               this.text( 'Hello World' );
-            }, { class: 'text' } );
+            },
+            { 'class' : 'text' } );
           } );
         } );
       } );
