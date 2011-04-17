@@ -46,18 +46,18 @@
     self.text = function( value )
     {
       $( self.scope ).append( value );
-      /*
-        TODO test returns self for chaining
-      */
+      
+      // Return self for chaining
+      return self;
     };
     
     // Adds an attribute to the builder's current scope
     self.attr = function( name, value )
     {
       $( self.scope ).attr( name, value );
-      /*
-        TODO test returns self for chaining
-      */
+      
+      // Return self for chaining
+      return self;
     };
     
     // Generic build method to build onto a builder's current scope
@@ -116,6 +116,9 @@
   
   /**
    * TagReference class, unifies API for builder when working with expressions or single tags
+   */
+   /*
+    TODO refactor TagReference and Expression into same object
    */
   var TagReference = function( expression )
   {

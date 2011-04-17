@@ -225,6 +225,34 @@ describe( 'building nodes', function( )
 
       expect( $( '#test' ).html( ) ).toEqual( '<div>testing!</div>' );
     } );
+    
+    it( 'should return the builder for chaining', function( )
+    {
+      var builder;
+      var result;
+      
+      $( '#test' ).build( function( )
+      {
+        builder = this;
+        
+        result = this.text( 'hello' );
+      } );
+      
+      expect( result ).toBe( builder );
+    } );
+    
+    it( 'should be able to be chained', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( function( )
+        {
+          this.text( 'test' ).text( 'ing!' );
+        } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div>testing!</div>' );
+    } );
   } );
 
   describe( 'the attr method', function( ) 
@@ -319,6 +347,34 @@ describe( 'building nodes', function( )
       } );
       
       expect( $( '#test' ).html( ) ).toEqual( '<div hello="world">hi!!!</div>' );
+    } );
+    
+    it( 'should return the builder for chaining', function( )
+    {
+      var builder;
+      var result;
+      
+      $( '#test' ).build( function( )
+      {
+        builder = this;
+        
+        result = this.attr( 'hello', 'tests' );
+      } );
+      
+      expect( result ).toBe( builder );
+    } );
+    
+    it( 'should be able to be chained', function( )
+    {
+      $( '#test' ).build( function( )
+      {
+        this.div( function( )
+        {
+          this.attr( 'one', 'test' ).attr( 'two', 'awesome' );
+        } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<div one="test" two="awesome"></div>' );
     } );
   } );
 } );
