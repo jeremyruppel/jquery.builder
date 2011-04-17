@@ -44,7 +44,7 @@
       // Create reference to the new tag
       var tagReference = _createTagReference( expression );
       
-      _that.scope.append( tagReference.root )
+      _that.scope.append( tagReference.root );
       
       // Accept a couple types of values
       switch( typeof value )
@@ -94,7 +94,7 @@
       if ( !expr.isComplex( ) )
       {
         innermost = root = $( '<' + expression + '/>' );
-        return { root: root, innermost: innermost }
+        return { root : root, innermost : innermost };
       }
 
       expr.eachTag( function( tag )
@@ -109,18 +109,18 @@
         }
       } );
 
-      return { root: root, innermost: innermost };
+      return { root : root, innermost : innermost };
     }
     
     _that.text = function( value )
     {
       $( _that.scope ).append( value );
-    }
+    };
     
     _that.attr = function( name, value )
     {
       $( _that.scope ).attr( name, value );
-    }
+    };
     
     return _that;
   };
@@ -128,7 +128,7 @@
   var _expression = function( value )
   {
     var _that = { },
-        _tags = [ ]
+        _tags = [ ];
     
     function _parse( value ) 
     {
@@ -144,16 +144,16 @@
     
     function _eachTag( fn )
     {
-      return $( _tags ).each( function( ) { fn.call( null, String( this ) ) } );
+      return $( _tags ).each( function( ) { fn.call( null, String( this ) ); } );
     }
     
-    _parse( value )
+    _parse( value );
     
     _that.isComplex = _isComplex;
     _that.eachTag   = _eachTag;
     
-    return _that
-  }
+    return _that;
+  };
   
   // A list of default tags to support
   /*
