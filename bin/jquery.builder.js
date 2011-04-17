@@ -16,18 +16,22 @@
  */
 ( function( $ )
 {
-  var _builder = function( scope, tags )
+  /**
+   * Builder class, provides builder API
+   */
+  var Builder = function( scope, tags )
   {
-    var _that = function ( expression, value, options ) 
+    // Shortcut to build method for expression-style building
+    var self = function ( expression, value, options ) 
     { 
-      _that.build( expression, value, options, _that.scope );
+      self.build( expression, value, options, self.scope );
     };
     
     // The scope to start building on
-    _that.scope = scope;
+    self.scope = scope;
     
     // The list of recognized tags
-    _that.tags = tags;
+    self.tags = tags;
     
     // Create a method for each of the tags given
     $( tags ).each( $.proxy( function( index, tag )
@@ -36,15 +40,34 @@
       {
         return this.build( tag, value, options, this.scope );
       };
-    }, null, _that ) );
+    }, null, self ) );
     
-    _that.build = function( expression, value, options, scope )
+    // Adds raw text to the builder's current scope
+    self.text = function( value )
     {
+      $( self.scope ).append( value );
       
+      // Return self for chaining
+      return self;
+    };
+    
+    // Adds an attribute to the builder's current scope
+    self.attr = function( name, value )
+    {
+      $( self.scope ).attr( name, value );
+      
+      // Return self for chaining
+      return self;
+    };
+    
+    // Generic build method to build onto a builder's current scope
+    self.build = function( expr, value, options, scope )
+    {
       // Create reference to the new tag
-      var tagReference = _createTagReference( expression );
+      var expression = new Expression( expr );
       
-      _that.scope.append( tagReference.root );
+      // Add the new tag to the current scope
+      self.scope.append( expression.root );
       
       // Accept a couple types of values
       switch( typeof value )
@@ -52,24 +75,27 @@
         // If it's a function, alter our scope and call it
         case 'function':
         
-          _that.scope = tagReference.innermost;
+          // Change scope
+          self.scope = expression.innermost;
           
-          value.call( _that, _that );
+          // Call the block
+          value.call( self, self );
           
-          _that.scope = scope;
+          // Revert the scope back
+          self.scope = scope;
           
           break;
         // If it's a string or number, add it as text to the node
         case 'string':
         case 'number':
           
-          tagReference.innermost.append( value );
+          expression.innermost.append( value );
           
           break;
         // If it's a hash, apply it as attributes to the node
         case 'object' :
         
-          tagReference.innermost.attr( value );
+          expression.innermost.attr( value );
         
           break;
       }
@@ -77,88 +103,52 @@
       // If the user wanted to pass text *and* an attribute hash, apply it now
       if( typeof options === 'object' )
       {
-        tagReference.innermost.attr( options );
+        expression.innermost.attr( options );
       }
       
       // Return self for chaining
-      return _that;
+      return self;
     };
     
-    // Check if this is a complex ( more than one tag ) or simple expression and if is
-    // complex return the outermost and innermost element
-    function _createTagReference( expression )
-    {
-      var expr = _expression( expression );
-      var root = null, innermost = null;
-      
-      if ( !expr.isComplex( ) )
-      {
-        innermost = root = $( '<' + expression + '/>' );
-        return { root : root, innermost : innermost };
-      }
-
-      expr.eachTag( function( tag )
-      {
-        if ( !innermost )
-        {
-          innermost = root = $( '<' + tag + '/>' );
-        }          
-        else
-        {
-          innermost = $( '<' + tag + '/>' ).appendTo( innermost );
-        }
-      } );
-
-      return { root : root, innermost : innermost };
-    }
-    
-    _that.text = function( value )
-    {
-      $( _that.scope ).append( value );
-    };
-    
-    _that.attr = function( name, value )
-    {
-      $( _that.scope ).attr( name, value );
-    };
-    
-    return _that;
+    // End class definition
+    return self;
   };
   
-  var _expression = function( value )
+  /**
+   * Expression class, unifies API for builder when working with expressions or single tags
+   */
+  var Expression = function( value )
   {
-    var _that = { },
-        _tags = [ ];
-    
-    function _parse( value ) 
+    // Null check for the expression value
+    if( !value )
     {
-      if ( !value ) 
-        throw new Error('Invalid expression: empty or null');
-      _tags = value.split(/\s+/);
+      throw new Error( 'Invalid expression: empty or null' );
     }
     
-    function _isComplex( ) 
+    // Builds a jquery selector for a given tag name
+    var makeTag = function( name )
     {
-      return _tags.length > 1;
-    }
+      return $( '<' + name + '/>' );
+    };
     
-    function _eachTag( fn )
+    // Tags in an expression are separated by whitespace
+    var tags = value.split( /\s+/ );
+    
+    // Define the root tag
+    this.root = makeTag( tags.shift( ) );
+    
+    // If there is only one tag, the innermost tag *is* the root tag
+    this.innermost = this.root;
+    
+    // If there are more tags left, tack them onto the root and alter the innermost tag reference
+    $( tags ).each( $.proxy( function( index, tag )
     {
-      return $( _tags ).each( function( ) { fn.call( null, String( this ) ); } );
-    }
-    
-    _parse( value );
-    
-    _that.isComplex = _isComplex;
-    _that.eachTag   = _eachTag;
-    
-    return _that;
+      this.innermost = makeTag( tag ).appendTo( this.innermost );
+    },
+    this ) );
   };
   
   // A list of default tags to support
-  /*
-    TODO need to make this list a little more legit. 
-  */
   var defaults = 'h1 h2 h3 h4 h5 div input span a ul li table tbody thead th tr td label hr'.split( /\s+/ );
   
   // A full list of the tags to support, including custom ones
@@ -169,7 +159,7 @@
   $.fn.build = function( value )
   {
     // Create our builder instance
-    var builder = _builder( this, available );
+    var builder = new Builder( this, available );
     
     // Accept a couple types of values here, too
     switch( typeof value )
