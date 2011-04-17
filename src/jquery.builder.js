@@ -46,12 +46,18 @@
     self.text = function( value )
     {
       $( self.scope ).append( value );
+      /*
+        TODO test returns self for chaining
+      */
     };
     
     // Adds an attribute to the builder's current scope
     self.attr = function( name, value )
     {
       $( self.scope ).attr( name, value );
+      /*
+        TODO test returns self for chaining
+      */
     };
     
     // Generic build method to build onto a builder's current scope
@@ -104,22 +110,28 @@
       return self;
     };
     
+    // End class definition
     return self;
   };
   
-  // Check if this is a complex ( more than one tag ) or simple expression and if is
-  // complex return the outermost and innermost element
+  /**
+   * TagReference class, unifies API for builder when working with expressions or single tags
+   */
   var TagReference = function( expression )
   {
-    var expr = _expression( expression );
+    // Check if this is a complex ( more than one tag ) or simple expression and if is
+    // complex return the outermost and innermost element
+    var expr = new Expression( expression );
     var root = null, innermost = null;
     
+    // If the expression is not complex, i.e. has only one tag, create it and return
     if ( !expr.isComplex( ) )
     {
       innermost = root = $( '<' + expression + '/>' );
       return { root : root, innermost : innermost };
     }
 
+    // Else, create all of the tags in the expression and assign the root and innermost tag appropriately
     expr.eachTag( function( tag )
     {
       if ( !innermost )
@@ -135,7 +147,10 @@
     return { root : root, innermost : innermost };
   };
   
-  var _expression = function( value )
+  /**
+   * Expression class, allows creation of multiple nested tags through a simple syntax
+   */
+  var Expression = function( value )
   {
     var _that = { },
         _tags = [ ];
