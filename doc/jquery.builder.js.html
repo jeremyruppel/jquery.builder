@@ -340,6 +340,40 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
         <div class="pilwrap">
           <a class="pilcrow" href="#section-24">&#182;</a>
         </div>
+        <p>Regexp for finding a tag name in an expression</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">tagNameExprPattern</span> <span class="o">=</span> <span class="sr">/([\w-_]+)[\.#]?/g</span><span class="p">;</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-25'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-25">&#182;</a>
+        </div>
+        <p>Regexp for finding a class in an expression</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">classExprPattern</span>   <span class="o">=</span> <span class="sr">/\.([\w-_]+)/g</span><span class="p">;</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-26'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-26">&#182;</a>
+        </div>
+        <p>Regexp for finding an id in an expression</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">idExprPattern</span>      <span class="o">=</span> <span class="sr">/#([\w-_]+)/g</span><span class="p">;</span>
+  </pre></div>
+      </td>
+    </tr>
+    <tr id='section-27'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-27">&#182;</a>
+        </div>
         <p>Expression class, unifies API for builder when working with expressions or single tags</p>
       </td>
       <td class=code>
@@ -347,10 +381,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
   <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-25'>
+    <tr id='section-28'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-25">&#182;</a>
+          <a class="pilcrow" href="#section-28">&#182;</a>
         </div>
         <p>Null check for the expression value</p>
       </td>
@@ -362,25 +396,124 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
     </pre></div>
       </td>
     </tr>
-    <tr id='section-26'>
+    <tr id='section-29'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-26">&#182;</a>
+          <a class="pilcrow" href="#section-29">&#182;</a>
         </div>
-        <p>Builds a jquery selector for a given tag name</p>
+        <p>Reset RegExp object last match index</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="kd">var</span> <span class="nx">makeTag</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">name</span> <span class="p">)</span>
-    <span class="p">{</span>
-      <span class="k">return</span> <span class="nx">$</span><span class="p">(</span> <span class="s1">&#39;&lt;&#39;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;/&gt;&#39;</span> <span class="p">);</span>
+        <div class='highlight'><pre>    <span class="kd">var</span> <span class="nx">resetRegexp</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">regexp</span> <span class="p">)</span> 
+    <span class="p">{</span> 
+      <span class="nx">regexp</span><span class="p">.</span><span class="nx">lastIndex</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
     <span class="p">};</span>
     </pre></div>
       </td>
     </tr>
-    <tr id='section-27'>
+    <tr id='section-30'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-27">&#182;</a>
+          <a class="pilcrow" href="#section-30">&#182;</a>
+        </div>
+        <p>Extract the tag name from the expression</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="kd">var</span> <span class="nx">extractTagName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">expr</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nx">resetRegexp</span><span class="p">(</span> <span class="nx">tagNameExprPattern</span> <span class="p">);</span>
+      
+      <span class="k">return</span> <span class="nx">tagNameExprPattern</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span> <span class="nx">expr</span> <span class="p">)[</span> <span class="mi">1</span> <span class="p">];</span>
+    <span class="p">};</span>
+    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-31'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-31">&#182;</a>
+        </div>
+        <p>Extract the tag id from the expression</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="kd">var</span> <span class="nx">extractId</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">expr</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="nx">resetRegexp</span><span class="p">(</span> <span class="nx">idExprPattern</span> <span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">matcher</span> <span class="o">=</span> <span class="nx">idExprPattern</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span> <span class="nx">expr</span> <span class="p">);</span>
+      
+      <span class="k">return</span> <span class="nx">matcher</span> <span class="o">?</span> <span class="nx">matcher</span><span class="p">[</span> <span class="mi">1</span> <span class="p">]</span> <span class="o">:</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">};</span>
+    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-32'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-32">&#182;</a>
+        </div>
+        <p>Extract the classes from the expression</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="kd">var</span> <span class="nx">extractClasses</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">expr</span> <span class="p">)</span> 
+    <span class="p">{</span>
+      <span class="nx">resetRegexp</span><span class="p">(</span> <span class="nx">classExprPattern</span> <span class="p">);</span>
+      <span class="kd">var</span> <span class="nx">clazz</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">[</span> <span class="p">];</span>
+      
+      <span class="k">while</span> <span class="p">(</span> <span class="p">(</span> <span class="nx">clazz</span> <span class="o">=</span> <span class="nx">classExprPattern</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span> <span class="nx">expr</span> <span class="p">)</span> <span class="p">)</span> <span class="p">)</span>
+      <span class="p">{</span>
+        <span class="nx">result</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span> <span class="nx">clazz</span><span class="p">[</span> <span class="mi">1</span> <span class="p">]</span> <span class="p">);</span>
+      <span class="p">}</span>
+      <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+    <span class="p">};</span>
+    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-33'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-33">&#182;</a>
+        </div>
+        <p>Builds a jquery selector for a given tag name</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="kd">var</span> <span class="nx">makeTag</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">expr</span> <span class="p">)</span>
+    <span class="p">{</span> 
+      <span class="kd">var</span> <span class="nx">newTag</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span> <span class="s1">&#39;&lt;&#39;</span> <span class="o">+</span> <span class="nx">extractTagName</span><span class="p">(</span> <span class="nx">expr</span> <span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/&gt;&#39;</span> <span class="p">),</span>
+          <span class="nx">id</span>     <span class="o">=</span> <span class="nx">extractId</span><span class="p">(</span> <span class="nx">expr</span> <span class="p">);</span>
+      </pre></div>
+      </td>
+    </tr>
+    <tr id='section-34'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-34">&#182;</a>
+        </div>
+        <p>Add the id if it is present in the expression</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>      <span class="k">if</span> <span class="p">(</span> <span class="nx">id</span> <span class="o">!==</span> <span class="kc">null</span> <span class="p">)</span>
+      <span class="p">{</span>
+        <span class="nx">newTag</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="nx">id</span> <span class="p">);</span>
+      <span class="p">}</span>
+      </pre></div>
+      </td>
+    </tr>
+    <tr id='section-35'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-35">&#182;</a>
+        </div>
+        <p>Add the classes to the tag and return it</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>      <span class="k">return</span> <span class="nx">newTag</span><span class="p">.</span><span class="nx">addClass</span><span class="p">(</span> <span class="nx">extractClasses</span><span class="p">(</span> <span class="nx">expr</span> <span class="p">).</span><span class="nx">join</span><span class="p">(</span> <span class="s1">&#39; &#39;</span> <span class="p">)</span> <span class="p">);</span>
+    <span class="p">};</span>
+    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-36'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-36">&#182;</a>
         </div>
         <p>Tags in an expression are separated by whitespace</p>
       </td>
@@ -389,10 +522,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
     </pre></div>
       </td>
     </tr>
-    <tr id='section-28'>
+    <tr id='section-37'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-28">&#182;</a>
+          <a class="pilcrow" href="#section-37">&#182;</a>
         </div>
         <p>Define the root tag</p>
       </td>
@@ -401,10 +534,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
     </pre></div>
       </td>
     </tr>
-    <tr id='section-29'>
+    <tr id='section-38'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-29">&#182;</a>
+          <a class="pilcrow" href="#section-38">&#182;</a>
         </div>
         <p>If there is only one tag, the innermost tag <em>is</em> the root tag</p>
       </td>
@@ -413,10 +546,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
     </pre></div>
       </td>
     </tr>
-    <tr id='section-30'>
+    <tr id='section-39'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-30">&#182;</a>
+          <a class="pilcrow" href="#section-39">&#182;</a>
         </div>
         <p>If there are more tags left, tack them onto the root and alter the innermost tag reference</p>
       </td>
@@ -430,10 +563,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
   </pre></div>
       </td>
     </tr>
-    <tr id='section-31'>
+    <tr id='section-40'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-31">&#182;</a>
+          <a class="pilcrow" href="#section-40">&#182;</a>
         </div>
         <p>A list of default tags to support</p>
       </td>
@@ -442,10 +575,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
   </pre></div>
       </td>
     </tr>
-    <tr id='section-32'>
+    <tr id='section-41'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-32">&#182;</a>
+          <a class="pilcrow" href="#section-41">&#182;</a>
         </div>
         <p>A full list of the tags to support, including custom ones</p>
       </td>
@@ -466,10 +599,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
   <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-34'>
+    <tr id='section-43'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-34">&#182;</a>
+          <a class="pilcrow" href="#section-43">&#182;</a>
         </div>
         <p>Create our builder instance</p>
       </td>
@@ -478,10 +611,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
     </pre></div>
       </td>
     </tr>
-    <tr id='section-35'>
+    <tr id='section-44'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-35">&#182;</a>
+          <a class="pilcrow" href="#section-44">&#182;</a>
         </div>
         <p>Accept a couple types of values here, too</p>
       </td>
@@ -490,10 +623,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
     <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-36'>
+    <tr id='section-45'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-36">&#182;</a>
+          <a class="pilcrow" href="#section-45">&#182;</a>
         </div>
         <p>If it&rsquo;s a function, start building!</p>
       </td>
@@ -504,10 +637,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
         <span class="k">break</span><span class="p">;</span></pre></div>
       </td>
     </tr>
-    <tr id='section-37'>
+    <tr id='section-46'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-37">&#182;</a>
+          <a class="pilcrow" href="#section-46">&#182;</a>
         </div>
         <p>If it&rsquo;s a string, add it to our custom tags list</p>
       </td>
@@ -525,10 +658,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
       </pre></div>
       </td>
     </tr>
-    <tr id='section-38'>
+    <tr id='section-47'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-38">&#182;</a>
+          <a class="pilcrow" href="#section-47">&#182;</a>
         </div>
         <p>If it&rsquo;s a boolean and it&rsquo;s false, reset the tags list</p>
       </td>
@@ -542,10 +675,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
     <span class="p">}</span></pre></div>
       </td>
     </tr>
-    <tr id='section-39'>
+    <tr id='section-48'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-39">&#182;</a>
+          <a class="pilcrow" href="#section-48">&#182;</a>
         </div>
         <p>Return jquery for chaining</p>
 

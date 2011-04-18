@@ -114,6 +114,13 @@
     return self;
   };
   
+  // Regexp for finding a tag name in an expression
+  var tagNameExprPattern = /([\w-_]+)[\.#]?/g;
+  // Regexp for finding a class in an expression
+  var classExprPattern   = /\.([\w-_]+)/g;
+  // Regexp for finding an id in an expression
+  var idExprPattern      = /#([\w-_]+)/g;
+  
   /**
    * Expression class, unifies API for builder when working with expressions or single tags
    */
@@ -125,10 +132,55 @@
       throw new Error( 'Invalid expression: empty or null' );
     }
     
-    // Builds a jquery selector for a given tag name
-    var makeTag = function( name )
+    // Reset RegExp object last match index
+    var resetRegexp = function( regexp ) 
+    { 
+      regexp.lastIndex = 0; 
+    };
+    
+    // Extract the tag name from the expression
+    var extractTagName = function( expr )
     {
-      return $( '<' + name + '/>' );
+      resetRegexp( tagNameExprPattern );
+      
+      return tagNameExprPattern.exec( expr )[ 1 ];
+    };
+    
+    // Extract the tag id from the expression
+    var extractId = function( expr ) {
+      resetRegexp( idExprPattern );
+      var matcher = idExprPattern.exec( expr );
+      
+      return matcher ? matcher[ 1 ] : null;
+    };
+    
+    // Extract the classes from the expression
+    var extractClasses = function( expr ) 
+    {
+      resetRegexp( classExprPattern );
+      var clazz = null, result = [ ];
+      
+      while ( ( clazz = classExprPattern.exec( expr ) ) )
+      {
+        result.push( clazz[ 1 ] );
+      }
+      return result;
+    };
+    
+    // Builds a jquery selector for a given tag name
+    var makeTag = function( expr )
+    { 
+      var newTag = $( '<' + extractTagName( expr ) + '/>' ),
+          id     = extractId( expr );
+      
+      // Add the id if it is present in the expression
+      if ( id !== null )
+      {
+        newTag.attr( 'id', id );
+      }
+      
+      // Add the classes to the tag and return it
+      return newTag.addClass( extractClasses( expr ).join( ' ' ) );
     };
     
     // Tags in an expression are separated by whitespace
