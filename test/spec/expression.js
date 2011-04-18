@@ -219,8 +219,31 @@ describe( 'when using expressions', function( )
           expect( $( '#test' ).html( ) ).toEqual( '<foo id="outer"><bar id="inner"></bar></foo>' );
         } );
       } );
+      
       describe( 'using all the power', function( )
       {
+        it( 'should assign a class before an id', function( )
+        {
+          $( '#test' ).build( function( )
+          {
+            this( 'div.class#id' );
+          } );
+
+          expect( $( '#test div' ).hasClass( 'class' ) ).toBe( true );
+          expect( $( '#test div' ).attr( 'id' ) ).toEqual( 'id' );
+        } );
+        
+        it( 'should assign an id before a class', function( )
+        {
+          $( '#test' ).build( function( )
+          {
+            this( 'div#id.class' );
+          } );
+
+          expect( $( '#test div' ).hasClass( 'class' ) ).toBe( true );
+          expect( $( '#test div' ).attr( 'id' ) ).toEqual( 'id' );
+        } );
+        
         it( 'should work', function( ) 
         {
           $( '#test' ).build( function( )
