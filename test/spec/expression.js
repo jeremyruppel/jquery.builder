@@ -127,5 +127,120 @@ describe( 'when using expressions', function( )
       expect( $( '#test' ).html( ) ).toEqual( '<foo><bar><baz>Hello World</baz></bar></foo>' );
     } );
     
+    describe( 'with more advanced syntax', function( ) 
+    {
+      describe( 'using classes', function( ) 
+      {
+        it ( 'should build an element with a class', function( )
+        {
+          $( '#test' ).build( function( )
+          {
+            this('foo.myclass');
+          } );
+
+          expect( $( '#test' ).html( ) ).toEqual( '<foo class="myclass"></foo>' );
+        } );
+
+        it ( 'should build an nested element with a class', function( )
+        {
+          $( '#test' ).build( function( )
+          {
+            this( 'foo bar.myclass' );
+          } );
+
+          expect( $( '#test' ).html( ) ).toEqual( '<foo><bar class="myclass"></bar></foo>' );
+        } );
+
+        it ( 'should build elements with one class each', function( )
+        {
+          $( '#test' ).build( function( )
+          {
+            this( 'foo.myclass bar.yourclass' );
+          } );
+
+          expect( $( '#test' ).html( ) ).toEqual( '<foo class="myclass"><bar class="yourclass"></bar></foo>' );
+        } );
+
+        it ( 'should build an element with more than one class', function( )
+        {
+          $( '#test' ).build( function( )
+          {
+            this( 'foo.hello.word' );
+          } );
+
+          expect( $( '#test' ).html( ) ).toEqual( '<foo class="hello word"></foo>' );
+        } );
+
+        it ( 'should work with nested scopes', function( )
+        {
+          $( '#test' ).build( function( )
+          {
+            this( 'foo.one', function( )
+            {
+              this( 'bar.two baz.three', function( )
+              {
+                this( 'qux.four', "Hello World!!!" );
+              } );
+            } );
+          } );
+
+          expect( $( '#test' ).html( ) ).toEqual( '<foo class="one"><bar class="two"><baz class="three"><qux class="four">Hello World!!!</qux></baz></bar></foo>' );
+        } );
+      } );
+      describe( 'using ids', function( )
+      {
+        it ( 'should build an element with an id', function( )
+        {
+          $( '#test' ).build( function( )
+          {
+            this('foo#myid');
+          } );
+
+          expect( $( '#test' ).html( ) ).toEqual( '<foo id="myid"></foo>' );
+        } );
+        
+        it ( 'should build an nested element with an id', function( )
+        {
+          $( '#test' ).build( function( )
+          {
+            this( 'foo bar#myid' );
+          } );
+
+          expect( $( '#test' ).html( ) ).toEqual( '<foo><bar id="myid"></bar></foo>' );
+        } );
+        
+        it ( 'should build elements with id', function( )
+        {
+          $( '#test' ).build( function( )
+          {
+            this( 'foo#outer bar#inner' );
+          } );
+
+          expect( $( '#test' ).html( ) ).toEqual( '<foo id="outer"><bar id="inner"></bar></foo>' );
+        } );
+      } );
+      describe( 'using all the power', function( )
+      {
+        it( 'should work', function( ) 
+        {
+          $( '#test' ).build( function( )
+          {
+            this( 'div.container table#mytable', function( ) 
+            {
+              this.thead( { 'class': 'table-head' } );
+              this( 'tbody.style1.style2', function( ) 
+              {
+                this( 'tr#row01.even', function( ) 
+                {
+                  this.text( 'mydata' );
+                } );
+              } );
+            } );
+          } );
+        
+          expect( $( '#test' ).html( ) ).toEqual( '<div class="container"><table id="mytable"><thead class="table-head"></thead><tbody class="style1 style2"><tr id="row01" class="even">mydata</tr></tbody></table></div>' );
+        } );
+      } );
+    } );
   } );
 } );
