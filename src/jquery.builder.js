@@ -114,15 +114,18 @@
     return self;
   };
   
+  // Regexp for finding a tag name in an expression
+  var tagNameExprPattern = /([\w-_]+)[\.#]?/g;
+  // Regexp for finding a class in an expression
+  var classExprPattern   = /\.([\w-_]+)/g;
+  // Regexp for finding an id in an expression
+  var idExprPattern      = /#([\w-_]+)/g;
+  
   /**
    * Expression class, unifies API for builder when working with expressions or single tags
    */
   var Expression = function( value )
   {
-    var tagNameExprPattern = /([\w-_]+)[\.#]?/g;
-    var classExprPattern   = /\.([\w-_]+)/g;
-    var idExprPattern      = /#([\w-_]+)/g;
-    
     // Null check for the expression value
     if( !value )
     {
