@@ -75,10 +75,10 @@ to add a mouse click event to an element:
     {
       this.span(function ( ) 
       { 
-        this.text( 'Click Me' )
+        this.text( 'Click Me' );
         this.$.click(function( )
         {
-          alert( 'Hello There!' )
+          alert( 'Hello There!' );
         } );
       } );
     } );
