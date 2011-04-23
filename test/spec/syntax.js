@@ -183,6 +183,48 @@ describe( 'builder syntax', function( )
         } );
       } );
       
+      it( 'should have an alias for scope property', function( )
+      {
+        var selector = $( '#test' );
+        
+        selector.build( function( )
+        {
+          expect( this.scope ).toBe( this.$ );
+        } );
+      } );
+      
+      it( 'should maintain alias under nested scope', function( )
+      {
+        var selector = $( '#test' );
+        
+        selector.build( function( )
+        {
+          expect( this.scope ).toBe( this.$ );
+          this.div( function( )
+          {
+            expect( this.scope ).toBe( this.$ );
+            this.h1( function( ) 
+            {
+              expect( this.scope ).toBe( this.$ );
+            } );
+            this( 'div' , function( ) 
+            {
+              expect( this.scope ).toBe( this.$ );
+            } );
+          } );
+        } );
+      } );
+      
+      it( 'should be an a jQuery object', function( )
+      {
+        var selector = $( '#test' );
+        
+        selector.build( function( )
+        {
+          expect( this.scope.jquery ).toBeDefined( this.$ );
+        } );
+      } );
+      
       it( 'should change the scope for nested blocks', function( )
       {
         $( '#test' ).build( function( )
