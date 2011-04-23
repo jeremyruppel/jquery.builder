@@ -382,21 +382,28 @@ $ is just an alias for the scope</p>
       </td>
       <td class=code>
         <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">idExprPattern</span>      <span class="o">=</span> <span class="sr">/#([\w-_]+)/g</span><span class="p">;</span>
-  
-  <span class="cm">/*</span>
-<span class="cm">   * Expression class</span>
-<span class="cm">   * ----------------</span>
-<span class="cm">   * An expression represents a more advanced syntax for building nodes</span>
-<span class="cm">   * Unifies API for builder when working with expressions or single tags</span>
-<span class="cm">   */</span>
-  <span class="kd">var</span> <span class="nx">Expression</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">value</span> <span class="p">)</span>
+  </pre></div>
+      </td>
+    </tr>
+    <tr id='section-Expression_class'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-Expression_class">&#182;</a>
+        </div>
+        <h2>Expression class</h2>
+
+<p>An expression represents a more advanced syntax for building nodes.
+Unifies API for builder when working with expressions or single tags.</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">Expression</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">value</span> <span class="p">)</span>
   <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-28'>
+    <tr id='section-29'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-28">&#182;</a>
+          <a class="pilcrow" href="#section-29">&#182;</a>
         </div>
         <p>Null check for the expression value</p>
       </td>
@@ -408,10 +415,10 @@ $ is just an alias for the scope</p>
     </pre></div>
       </td>
     </tr>
-    <tr id='section-29'>
+    <tr id='section-30'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-29">&#182;</a>
+          <a class="pilcrow" href="#section-30">&#182;</a>
         </div>
         <p>Reset RegExp object last match index</p>
       </td>
@@ -423,10 +430,10 @@ $ is just an alias for the scope</p>
     </pre></div>
       </td>
     </tr>
-    <tr id='section-30'>
+    <tr id='section-31'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-30">&#182;</a>
+          <a class="pilcrow" href="#section-31">&#182;</a>
         </div>
         <p>Extract the tag name from the expression</p>
       </td>
@@ -440,10 +447,10 @@ $ is just an alias for the scope</p>
     </pre></div>
       </td>
     </tr>
-    <tr id='section-31'>
+    <tr id='section-32'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-31">&#182;</a>
+          <a class="pilcrow" href="#section-32">&#182;</a>
         </div>
         <p>Extract the tag id from the expression</p>
       </td>
@@ -457,10 +464,10 @@ $ is just an alias for the scope</p>
     </pre></div>
       </td>
     </tr>
-    <tr id='section-32'>
+    <tr id='section-33'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-32">&#182;</a>
+          <a class="pilcrow" href="#section-33">&#182;</a>
         </div>
         <p>Extract the classes from the expression</p>
       </td>
@@ -479,10 +486,10 @@ $ is just an alias for the scope</p>
     </pre></div>
       </td>
     </tr>
-    <tr id='section-33'>
+    <tr id='section-34'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-33">&#182;</a>
+          <a class="pilcrow" href="#section-34">&#182;</a>
         </div>
         <p>Builds a jquery selector for a given tag name</p>
       </td>
@@ -494,10 +501,10 @@ $ is just an alias for the scope</p>
       </pre></div>
       </td>
     </tr>
-    <tr id='section-34'>
+    <tr id='section-35'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-34">&#182;</a>
+          <a class="pilcrow" href="#section-35">&#182;</a>
         </div>
         <p>Add the id if it is present in the expression</p>
       </td>
@@ -509,10 +516,10 @@ $ is just an alias for the scope</p>
       </pre></div>
       </td>
     </tr>
-    <tr id='section-35'>
+    <tr id='section-36'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-35">&#182;</a>
+          <a class="pilcrow" href="#section-36">&#182;</a>
         </div>
         <p>Add the classes to the tag and return it</p>
       </td>
@@ -522,10 +529,10 @@ $ is just an alias for the scope</p>
     </pre></div>
       </td>
     </tr>
-    <tr id='section-36'>
+    <tr id='section-37'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-36">&#182;</a>
+          <a class="pilcrow" href="#section-37">&#182;</a>
         </div>
         <p>Tags in an expression are separated by whitespace</p>
       </td>
@@ -534,10 +541,10 @@ $ is just an alias for the scope</p>
     </pre></div>
       </td>
     </tr>
-    <tr id='section-37'>
+    <tr id='section-38'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-37">&#182;</a>
+          <a class="pilcrow" href="#section-38">&#182;</a>
         </div>
         <p>Define the root tag</p>
       </td>
@@ -546,10 +553,10 @@ $ is just an alias for the scope</p>
     </pre></div>
       </td>
     </tr>
-    <tr id='section-38'>
+    <tr id='section-39'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-38">&#182;</a>
+          <a class="pilcrow" href="#section-39">&#182;</a>
         </div>
         <p>If there is only one tag, the innermost tag <em>is</em> the root tag</p>
       </td>
@@ -558,10 +565,10 @@ $ is just an alias for the scope</p>
     </pre></div>
       </td>
     </tr>
-    <tr id='section-39'>
+    <tr id='section-40'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-39">&#182;</a>
+          <a class="pilcrow" href="#section-40">&#182;</a>
         </div>
         <p>If there are more tags left, tack them onto the root and alter the innermost tag reference</p>
       </td>
@@ -575,10 +582,10 @@ $ is just an alias for the scope</p>
   </pre></div>
       </td>
     </tr>
-    <tr id='section-40'>
+    <tr id='section-41'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-40">&#182;</a>
+          <a class="pilcrow" href="#section-41">&#182;</a>
         </div>
         <p>A list of default tags to support</p>
       </td>
@@ -587,10 +594,10 @@ $ is just an alias for the scope</p>
   </pre></div>
       </td>
     </tr>
-    <tr id='section-41'>
+    <tr id='section-42'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-41">&#182;</a>
+          <a class="pilcrow" href="#section-42">&#182;</a>
         </div>
         <p>A full list of the tags to support, including custom ones</p>
       </td>
@@ -611,10 +618,10 @@ $ is just an alias for the scope</p>
   <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-43'>
+    <tr id='section-44'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-43">&#182;</a>
+          <a class="pilcrow" href="#section-44">&#182;</a>
         </div>
         <p>Create our builder instance</p>
       </td>
@@ -623,10 +630,10 @@ $ is just an alias for the scope</p>
     </pre></div>
       </td>
     </tr>
-    <tr id='section-44'>
+    <tr id='section-45'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-44">&#182;</a>
+          <a class="pilcrow" href="#section-45">&#182;</a>
         </div>
         <p>Accept a couple types of values here, too</p>
       </td>
@@ -635,10 +642,10 @@ $ is just an alias for the scope</p>
     <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-45'>
+    <tr id='section-46'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-45">&#182;</a>
+          <a class="pilcrow" href="#section-46">&#182;</a>
         </div>
         <p>If it&rsquo;s a function, start building!</p>
       </td>
@@ -649,10 +656,10 @@ $ is just an alias for the scope</p>
         <span class="k">break</span><span class="p">;</span></pre></div>
       </td>
     </tr>
-    <tr id='section-46'>
+    <tr id='section-47'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-46">&#182;</a>
+          <a class="pilcrow" href="#section-47">&#182;</a>
         </div>
         <p>If it&rsquo;s a string, add it to our custom tags list</p>
       </td>
@@ -670,10 +677,10 @@ $ is just an alias for the scope</p>
       </pre></div>
       </td>
     </tr>
-    <tr id='section-47'>
+    <tr id='section-48'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-47">&#182;</a>
+          <a class="pilcrow" href="#section-48">&#182;</a>
         </div>
         <p>If it&rsquo;s a boolean and it&rsquo;s false, reset the tags list</p>
       </td>
@@ -687,10 +694,10 @@ $ is just an alias for the scope</p>
     <span class="p">}</span></pre></div>
       </td>
     </tr>
-    <tr id='section-48'>
+    <tr id='section-49'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-48">&#182;</a>
+          <a class="pilcrow" href="#section-49">&#182;</a>
         </div>
         <p>Return jquery for chaining</p>
 

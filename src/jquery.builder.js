@@ -128,11 +128,11 @@
   // Regexp for finding an id in an expression
   var idExprPattern      = /#([\w-_]+)/g;
   
-  /*
+  /**
    * Expression class
    * ----------------
-   * An expression represents a more advanced syntax for building nodes
-   * Unifies API for builder when working with expressions or single tags
+   * An expression represents a more advanced syntax for building nodes.
+   * Unifies API for builder when working with expressions or single tags.
    */
   var Expression = function( value )
   {
