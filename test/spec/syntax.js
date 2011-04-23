@@ -221,7 +221,7 @@ describe( 'builder syntax', function( )
         
         selector.build( function( )
         {
-          expect( this.scope.jquery ).toBeDefined( this.$ );
+          expect( this.$.constructor ).toBe( $ );
         } );
       } );
       
