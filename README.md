@@ -68,6 +68,21 @@ The options hash may also be passed after the node text, like:
 
 	$( '#context' ).html( ); // => <a href="github.com">github rules</a>
 
+If you need the reference to the current scope DOM element you can use the $ variable. For Example,
+to add a mouse click event to an element:
+
+    $( '#context' ).build( function( )
+    {
+      this.span(function ( ) 
+      { 
+        this.text( 'Click Me' )
+        this.$.click(function( )
+        {
+          alert( 'Hello There!' )
+        } );
+      } );
+    } );
+
 Custom Tags
 -----------
 
