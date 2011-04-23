@@ -73,10 +73,14 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
         <div class="pilwrap">
           <a class="pilcrow" href="#section-4">&#182;</a>
         </div>
-        <p>The scope to start building on</p>
+        <p>The scope is a reference to a jQuery wrapped element
+$ is just an alias for the scope</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="nx">self</span><span class="p">.</span><span class="nx">scope</span> <span class="o">=</span> <span class="nx">scope</span><span class="p">;</span>
+        <div class='highlight'><pre>    <span class="kd">var</span> <span class="nx">changeScope</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">newScope</span> <span class="p">)</span>
+    <span class="p">{</span>
+      <span class="nx">self</span><span class="p">.</span><span class="nx">scope</span> <span class="o">=</span> <span class="nx">self</span><span class="p">.</span><span class="nx">$</span> <span class="o">=</span> <span class="nx">newScope</span><span class="p">;</span>
+    <span class="p">};</span>
     </pre></div>
       </td>
     </tr>
@@ -85,10 +89,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
         <div class="pilwrap">
           <a class="pilcrow" href="#section-5">&#182;</a>
         </div>
-        <p>The list of recognized tags</p>
+        <p>The scope to start building on</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>    <span class="nx">self</span><span class="p">.</span><span class="nx">tags</span> <span class="o">=</span> <span class="nx">tags</span><span class="p">;</span>
+        <div class='highlight'><pre>    <span class="nx">changeScope</span><span class="p">(</span> <span class="nx">scope</span> <span class="p">);</span>
     </pre></div>
       </td>
     </tr>
@@ -96,6 +100,18 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-6">&#182;</a>
+        </div>
+        <p>The list of recognized tags</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>    <span class="nx">self</span><span class="p">.</span><span class="nx">tags</span> <span class="o">=</span> <span class="nx">tags</span><span class="p">;</span>
+    </pre></div>
+      </td>
+    </tr>
+    <tr id='section-7'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-7">&#182;</a>
         </div>
         <p>Create a method for each of the tags given</p>
       </td>
@@ -110,10 +126,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
     </pre></div>
       </td>
     </tr>
-    <tr id='section-7'>
+    <tr id='section-8'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-7">&#182;</a>
+          <a class="pilcrow" href="#section-8">&#182;</a>
         </div>
         <p>Adds raw text to the builder&rsquo;s current scope</p>
       </td>
@@ -124,10 +140,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
       </pre></div>
       </td>
     </tr>
-    <tr id='section-8'>
+    <tr id='section-9'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-8">&#182;</a>
+          <a class="pilcrow" href="#section-9">&#182;</a>
         </div>
         <p>Return self for chaining</p>
       </td>
@@ -137,10 +153,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
     </pre></div>
       </td>
     </tr>
-    <tr id='section-9'>
+    <tr id='section-10'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-9">&#182;</a>
+          <a class="pilcrow" href="#section-10">&#182;</a>
         </div>
         <p>Adds an attribute to the builder&rsquo;s current scope</p>
       </td>
@@ -151,10 +167,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
       </pre></div>
       </td>
     </tr>
-    <tr id='section-10'>
+    <tr id='section-11'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-10">&#182;</a>
+          <a class="pilcrow" href="#section-11">&#182;</a>
         </div>
         <p>Return self for chaining</p>
       </td>
@@ -164,10 +180,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
     </pre></div>
       </td>
     </tr>
-    <tr id='section-11'>
+    <tr id='section-12'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-11">&#182;</a>
+          <a class="pilcrow" href="#section-12">&#182;</a>
         </div>
         <p>Generic build method to build onto a builder&rsquo;s current scope</p>
       </td>
@@ -176,10 +192,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
     <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-12'>
+    <tr id='section-13'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-12">&#182;</a>
+          <a class="pilcrow" href="#section-13">&#182;</a>
         </div>
         <p>Create reference to the new tag</p>
       </td>
@@ -188,10 +204,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
       </pre></div>
       </td>
     </tr>
-    <tr id='section-13'>
+    <tr id='section-14'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-13">&#182;</a>
+          <a class="pilcrow" href="#section-14">&#182;</a>
         </div>
         <p>Add the new tag to the current scope</p>
       </td>
@@ -200,10 +216,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
       </pre></div>
       </td>
     </tr>
-    <tr id='section-14'>
+    <tr id='section-15'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-14">&#182;</a>
+          <a class="pilcrow" href="#section-15">&#182;</a>
         </div>
         <p>Accept a couple types of values</p>
       </td>
@@ -212,10 +228,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
       <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-15'>
+    <tr id='section-16'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-15">&#182;</a>
+          <a class="pilcrow" href="#section-16">&#182;</a>
         </div>
         <p>If it&rsquo;s a function, alter our scope and call it</p>
       </td>
@@ -224,27 +240,15 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
         </pre></div>
       </td>
     </tr>
-    <tr id='section-16'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-16">&#182;</a>
-        </div>
-        <p>Change scope</p>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre>          <span class="nx">self</span><span class="p">.</span><span class="nx">scope</span> <span class="o">=</span> <span class="nx">expression</span><span class="p">.</span><span class="nx">innermost</span><span class="p">;</span>
-          </pre></div>
-      </td>
-    </tr>
     <tr id='section-17'>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-17">&#182;</a>
         </div>
-        <p>Call the block</p>
+        <p>Change scope</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>          <span class="nx">value</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">self</span> <span class="p">);</span>
+        <div class='highlight'><pre>          <span class="nx">changeScope</span><span class="p">(</span> <span class="nx">expression</span><span class="p">.</span><span class="nx">innermost</span> <span class="p">);</span>
           </pre></div>
       </td>
     </tr>
@@ -253,18 +257,30 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
         <div class="pilwrap">
           <a class="pilcrow" href="#section-18">&#182;</a>
         </div>
-        <p>Revert the scope back</p>
+        <p>Call the block</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>          <span class="nx">self</span><span class="p">.</span><span class="nx">scope</span> <span class="o">=</span> <span class="nx">scope</span><span class="p">;</span>
-          
-          <span class="k">break</span><span class="p">;</span></pre></div>
+        <div class='highlight'><pre>          <span class="nx">value</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span> <span class="nx">self</span><span class="p">,</span> <span class="nx">self</span> <span class="p">);</span>
+          </pre></div>
       </td>
     </tr>
     <tr id='section-19'>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-19">&#182;</a>
+        </div>
+        <p>Revert the scope back</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>          <span class="nx">changeScope</span><span class="p">(</span> <span class="nx">scope</span> <span class="p">);</span>
+          
+          <span class="k">break</span><span class="p">;</span></pre></div>
+      </td>
+    </tr>
+    <tr id='section-20'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-20">&#182;</a>
         </div>
         <p>If it&rsquo;s a string or number, add it as text to the node</p>
       </td>
@@ -277,10 +293,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
           <span class="k">break</span><span class="p">;</span></pre></div>
       </td>
     </tr>
-    <tr id='section-20'>
+    <tr id='section-21'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-20">&#182;</a>
+          <a class="pilcrow" href="#section-21">&#182;</a>
         </div>
         <p>If it&rsquo;s a hash, apply it as attributes to the node</p>
       </td>
@@ -294,10 +310,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
       </pre></div>
       </td>
     </tr>
-    <tr id='section-21'>
+    <tr id='section-22'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-21">&#182;</a>
+          <a class="pilcrow" href="#section-22">&#182;</a>
         </div>
         <p>If the user wanted to pass text <em>and</em> an attribute hash, apply it now</p>
       </td>
@@ -309,10 +325,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
       </pre></div>
       </td>
     </tr>
-    <tr id='section-22'>
+    <tr id='section-23'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-22">&#182;</a>
+          <a class="pilcrow" href="#section-23">&#182;</a>
         </div>
         <p>Return self for chaining</p>
       </td>
@@ -322,10 +338,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
     </pre></div>
       </td>
     </tr>
-    <tr id='section-23'>
+    <tr id='section-24'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-23">&#182;</a>
+          <a class="pilcrow" href="#section-24">&#182;</a>
         </div>
         <p>End class definition</p>
       </td>
@@ -335,10 +351,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
   </pre></div>
       </td>
     </tr>
-    <tr id='section-24'>
+    <tr id='section-25'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-24">&#182;</a>
+          <a class="pilcrow" href="#section-25">&#182;</a>
         </div>
         <p>Regexp for finding a tag name in an expression</p>
       </td>
@@ -346,10 +362,10 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
         <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">tagNameExprPattern</span> <span class="o">=</span> <span class="sr">/([\w-_]+)[\.#]?/g</span><span class="p">;</span></pre></div>
       </td>
     </tr>
-    <tr id='section-25'>
+    <tr id='section-26'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-25">&#182;</a>
+          <a class="pilcrow" href="#section-26">&#182;</a>
         </div>
         <p>Regexp for finding a class in an expression</p>
       </td>
@@ -357,27 +373,23 @@ See <a href="https://github.com/jeremyruppel/jquery.builder">the project&rsquo;s
         <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">classExprPattern</span>   <span class="o">=</span> <span class="sr">/\.([\w-_]+)/g</span><span class="p">;</span></pre></div>
       </td>
     </tr>
-    <tr id='section-26'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-26">&#182;</a>
-        </div>
-        <p>Regexp for finding an id in an expression</p>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">idExprPattern</span>      <span class="o">=</span> <span class="sr">/#([\w-_]+)/g</span><span class="p">;</span>
-  </pre></div>
-      </td>
-    </tr>
     <tr id='section-27'>
       <td class=docs>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-27">&#182;</a>
         </div>
-        <p>Expression class, unifies API for builder when working with expressions or single tags</p>
+        <p>Regexp for finding an id in an expression</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">Expression</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">value</span> <span class="p">)</span>
+        <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">idExprPattern</span>      <span class="o">=</span> <span class="sr">/#([\w-_]+)/g</span><span class="p">;</span>
+  
+  <span class="cm">/*</span>
+<span class="cm">   * Expression class</span>
+<span class="cm">   * ----------------</span>
+<span class="cm">   * An expression represents a more advanced syntax for building nodes</span>
+<span class="cm">   * Unifies API for builder when working with expressions or single tags</span>
+<span class="cm">   */</span>
+  <span class="kd">var</span> <span class="nx">Expression</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">value</span> <span class="p">)</span>
   <span class="p">{</span></pre></div>
       </td>
     </tr>

@@ -27,8 +27,15 @@
       self.build( expression, value, options, self.scope );
     };
     
+    // The scope is a reference to a jQuery wrapped element
+    // $ is just an alias for the scope
+    var changeScope = function( newScope )
+    {
+      self.scope = self.$ = newScope;
+    };
+    
     // The scope to start building on
-    self.scope = scope;
+    changeScope( scope );
     
     // The list of recognized tags
     self.tags = tags;
@@ -76,13 +83,13 @@
         case 'function':
         
           // Change scope
-          self.scope = expression.innermost;
+          changeScope( expression.innermost );
           
           // Call the block
           value.call( self, self );
           
           // Revert the scope back
-          self.scope = scope;
+          changeScope( scope );
           
           break;
         // If it's a string or number, add it as text to the node
@@ -121,8 +128,11 @@
   // Regexp for finding an id in an expression
   var idExprPattern      = /#([\w-_]+)/g;
   
-  /**
-   * Expression class, unifies API for builder when working with expressions or single tags
+  /*
+   * Expression class
+   * ----------------
+   * An expression represents a more advanced syntax for building nodes
+   * Unifies API for builder when working with expressions or single tags
    */
   var Expression = function( value )
   {
