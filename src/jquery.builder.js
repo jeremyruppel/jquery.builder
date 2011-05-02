@@ -73,9 +73,6 @@
       // Create reference to the new tag
       var expression = new Expression( expr );
       
-      // Add the new tag to the current scope
-      self.scope.append( expression.root );
-      
       // Accept a couple types of values
       switch( typeof value )
       {
@@ -112,6 +109,9 @@
       {
         expression.innermost.attr( options );
       }
+      
+      // Add the new tag to the current scope
+      self.scope.append( expression.root );
       
       // Return self for chaining
       return self;

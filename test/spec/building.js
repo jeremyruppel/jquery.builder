@@ -377,4 +377,30 @@ describe( 'building nodes', function( )
       expect( $( '#test' ).html( ) ).toEqual( '<div one="test" two="awesome"></div>' );
     } );
   } );
+
+  describe( 'the input node ', function( )
+  {
+    
+    it( 'should apply the type attr on creation', function( )
+    {
+      $( '#test' ).build( function( ) 
+      {
+        this.input( { type: 'text', name: 'foo' } );
+        this.input( { type: 'hidden', name: 'bar' } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<input type="text" name="foo"><input type="hidden" name="bar">' );
+    } );
+    
+    it( 'should apply the type attr on creation when using expressions', function( )
+    {
+      $( '#test' ).build( function( ) 
+      {
+        this( 'input', { type: 'text', name: 'foo' } );
+        this( 'input', { type: 'hidden', name: 'bar' } );
+      } );
+      
+      expect( $( '#test' ).html( ) ).toEqual( '<input type="text" name="foo"><input type="hidden" name="bar">' );
+    } );
+  } );
 } );
