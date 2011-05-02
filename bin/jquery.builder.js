@@ -73,9 +73,6 @@
       // Create reference to the new tag
       var expression = new Expression( expr );
       
-      // Add the new tag to the current scope
-      self.scope.append( expression.root );
-      
       // Accept a couple types of values
       switch( typeof value )
       {
@@ -113,6 +110,9 @@
         expression.innermost.attr( options );
       }
       
+      // Add the new tag to the current scope
+      self.scope.append( expression.root );
+      
       // Return self for chaining
       return self;
     };
@@ -128,11 +128,11 @@
   // Regexp for finding an id in an expression
   var idExprPattern      = /#([\w-_]+)/g;
   
-  /*
+  /**
    * Expression class
    * ----------------
-   * An expression represents a more advanced syntax for building nodes
-   * Unifies API for builder when working with expressions or single tags
+   * An expression represents a more advanced syntax for building nodes.
+   * Unifies API for builder when working with expressions or single tags.
    */
   var Expression = function( value )
   {
@@ -211,7 +211,7 @@
   };
   
   // A list of default tags to support
-  var defaults = 'h1 h2 h3 h4 h5 div input span a ul li table tbody thead th tr td label hr'.split( /\s+/ );
+  var defaults = 'h1 h2 h3 h4 h5 div form input span a ul li table tbody thead th tr td label hr p style script'.split( /\s+/ );
   
   // A full list of the tags to support, including custom ones
   var available = defaults.concat( );

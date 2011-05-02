@@ -209,18 +209,6 @@ $ is just an alias for the scope</p>
         <div class="pilwrap">
           <a class="pilcrow" href="#section-14">&#182;</a>
         </div>
-        <p>Add the new tag to the current scope</p>
-      </td>
-      <td class=code>
-        <div class='highlight'><pre>      <span class="nx">self</span><span class="p">.</span><span class="nx">scope</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span> <span class="nx">expression</span><span class="p">.</span><span class="nx">root</span> <span class="p">);</span>
-      </pre></div>
-      </td>
-    </tr>
-    <tr id='section-15'>
-      <td class=docs>
-        <div class="pilwrap">
-          <a class="pilcrow" href="#section-15">&#182;</a>
-        </div>
         <p>Accept a couple types of values</p>
       </td>
       <td class=code>
@@ -228,10 +216,10 @@ $ is just an alias for the scope</p>
       <span class="p">{</span></pre></div>
       </td>
     </tr>
-    <tr id='section-16'>
+    <tr id='section-15'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-16">&#182;</a>
+          <a class="pilcrow" href="#section-15">&#182;</a>
         </div>
         <p>If it&rsquo;s a function, alter our scope and call it</p>
       </td>
@@ -240,10 +228,10 @@ $ is just an alias for the scope</p>
         </pre></div>
       </td>
     </tr>
-    <tr id='section-17'>
+    <tr id='section-16'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-17">&#182;</a>
+          <a class="pilcrow" href="#section-16">&#182;</a>
         </div>
         <p>Change scope</p>
       </td>
@@ -252,10 +240,10 @@ $ is just an alias for the scope</p>
           </pre></div>
       </td>
     </tr>
-    <tr id='section-18'>
+    <tr id='section-17'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-18">&#182;</a>
+          <a class="pilcrow" href="#section-17">&#182;</a>
         </div>
         <p>Call the block</p>
       </td>
@@ -264,10 +252,10 @@ $ is just an alias for the scope</p>
           </pre></div>
       </td>
     </tr>
-    <tr id='section-19'>
+    <tr id='section-18'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-19">&#182;</a>
+          <a class="pilcrow" href="#section-18">&#182;</a>
         </div>
         <p>Revert the scope back</p>
       </td>
@@ -277,10 +265,10 @@ $ is just an alias for the scope</p>
           <span class="k">break</span><span class="p">;</span></pre></div>
       </td>
     </tr>
-    <tr id='section-20'>
+    <tr id='section-19'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-20">&#182;</a>
+          <a class="pilcrow" href="#section-19">&#182;</a>
         </div>
         <p>If it&rsquo;s a string or number, add it as text to the node</p>
       </td>
@@ -293,10 +281,10 @@ $ is just an alias for the scope</p>
           <span class="k">break</span><span class="p">;</span></pre></div>
       </td>
     </tr>
-    <tr id='section-21'>
+    <tr id='section-20'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-21">&#182;</a>
+          <a class="pilcrow" href="#section-20">&#182;</a>
         </div>
         <p>If it&rsquo;s a hash, apply it as attributes to the node</p>
       </td>
@@ -310,10 +298,10 @@ $ is just an alias for the scope</p>
       </pre></div>
       </td>
     </tr>
-    <tr id='section-22'>
+    <tr id='section-21'>
       <td class=docs>
         <div class="pilwrap">
-          <a class="pilcrow" href="#section-22">&#182;</a>
+          <a class="pilcrow" href="#section-21">&#182;</a>
         </div>
         <p>If the user wanted to pass text <em>and</em> an attribute hash, apply it now</p>
       </td>
@@ -322,6 +310,18 @@ $ is just an alias for the scope</p>
       <span class="p">{</span>
         <span class="nx">expression</span><span class="p">.</span><span class="nx">innermost</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span> <span class="nx">options</span> <span class="p">);</span>
       <span class="p">}</span>
+      </pre></div>
+      </td>
+    </tr>
+    <tr id='section-22'>
+      <td class=docs>
+        <div class="pilwrap">
+          <a class="pilcrow" href="#section-22">&#182;</a>
+        </div>
+        <p>Add the new tag to the current scope</p>
+      </td>
+      <td class=code>
+        <div class='highlight'><pre>      <span class="nx">self</span><span class="p">.</span><span class="nx">scope</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span> <span class="nx">expression</span><span class="p">.</span><span class="nx">root</span> <span class="p">);</span>
       </pre></div>
       </td>
     </tr>
@@ -590,7 +590,7 @@ Unifies API for builder when working with expressions or single tags.</p>
         <p>A list of default tags to support</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">defaults</span> <span class="o">=</span> <span class="s1">&#39;h1 h2 h3 h4 h5 div input span a ul li table tbody thead th tr td label hr&#39;</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span> <span class="sr">/\s+/</span> <span class="p">);</span>
+        <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">defaults</span> <span class="o">=</span> <span class="s1">&#39;h1 h2 h3 h4 h5 div form input span a ul li table tbody thead th tr td label hr p style script&#39;</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span> <span class="sr">/\s+/</span> <span class="p">);</span>
   </pre></div>
       </td>
     </tr>
