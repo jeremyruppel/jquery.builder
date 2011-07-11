@@ -211,7 +211,7 @@
   };
   
   // A list of default tags to support
-  var defaults = 'h1 h2 h3 h4 h5 div form input span a ul li table tbody thead th tr td label hr p style script'.split( /\s+/ );
+  var defaults = 'h1 h2 h3 h4 h5 div form input span a ul li table tbody thead th tr td label hr p style script select option'.split( /\s+/ );
   
   // A full list of the tags to support, including custom ones
   var available = defaults.concat( );
