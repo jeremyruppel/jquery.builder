@@ -40,14 +40,22 @@
     // The list of recognized tags
     self.tags = tags;
     
+    // An alternative to jQuery#proxy (not worked beacuse of an incompatibilty between versions 1.5 and 1.6)
+    function _proxy( fn, context )
+    {
+      return function( ) {
+        return fn.apply( context, arguments );
+      };
+    }
+    
     // Create a method for each of the tags given
-    $( tags ).each( $.proxy( function( index, tag )
+    $( tags ).each( _proxy( function( index, tag )
     {
       this[ tag ] = function( value, options )
       {
         return this.build( tag, value, options, this.scope );
       };
-    }, null, self ) );
+    }, self ) );
     
     // Adds raw text to the builder's current scope
     self.text = function( value )
