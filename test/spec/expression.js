@@ -228,6 +228,15 @@ describe( 'when using expressions', function( )
 
           expect( $( '#test' ).html( ) ).toEqual( '<foo id="outer"><bar id="inner"></bar></foo>' );
         } );
+
+        it ( 'should implicitly infer a div element when it is omitted', function( ) 
+        {
+          $( '#test' ).build( function( ) {
+            this('#foo', 'Hi there');
+          } );
+
+          expect($( '#test' ).html( )).toEqual( '<div id="foo">Hi there</div>' );
+        } );
       } );
       
       describe( 'using all the power', function( )
