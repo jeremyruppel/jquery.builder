@@ -130,7 +130,7 @@
   };
   
   // Regexp for finding a tag name in an expression
-  var tagNameExprPattern = /([\w-_]+)[\.#]?/g;
+  var tagNameExprPattern = /([\w-_]+)[\.#]?/;
   // Regexp for finding a class in an expression
   var classExprPattern   = /\.([\w-_]+)/g;
   // Regexp for finding an id in an expression
