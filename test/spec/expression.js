@@ -282,6 +282,15 @@ describe( 'when using expressions', function( )
         
           expect( $( '#test' ).html( ) ).toEqual( '<div class="container"><table id="mytable"><thead class="table-head"></thead><tbody class="style1 style2"><tr id="row01" class="even">mydata</tr></tbody></table></div>' );
         } );
+
+        it ( 'should implicitly infer a div element when it is omitted', function( ) 
+        {
+          $( '#test' ).build( function( ) {
+            this('#foo.bar', 'Hi there');
+          } );
+
+          expect($( '#test' ).html( )).toEqual( '<div id="foo" class="bar">Hi there</div>' );
+        } );
       } );
     } );
   } );
