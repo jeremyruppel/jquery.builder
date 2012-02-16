@@ -376,7 +376,7 @@ $ is just an alias for the scope</p>
         <p>Regexp for finding a tag name in an expression</p>
       </td>
       <td class=code>
-        <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">tagNameExprPattern</span> <span class="o">=</span> <span class="sr">/([\w-_]+)[\.#]?/g</span><span class="p">;</span></pre></div>
+        <div class='highlight'><pre>  <span class="kd">var</span> <span class="nx">tagNameExprPattern</span> <span class="o">=</span> <span class="sr">/^([\w-_]+)[\.#]?/</span><span class="p">;</span></pre></div>
       </td>
     </tr>
     <tr id='section-27'>
@@ -458,8 +458,10 @@ Unifies API for builder when working with expressions or single tags.</p>
         <div class='highlight'><pre>    <span class="kd">var</span> <span class="nx">extractTagName</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span> <span class="nx">expr</span> <span class="p">)</span>
     <span class="p">{</span>
       <span class="nx">resetRegexp</span><span class="p">(</span> <span class="nx">tagNameExprPattern</span> <span class="p">);</span>
-      
-      <span class="k">return</span> <span class="nx">tagNameExprPattern</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span> <span class="nx">expr</span> <span class="p">)[</span> <span class="mi">1</span> <span class="p">];</span>
+
+      <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">tagNameExprPattern</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span> <span class="nx">expr</span> <span class="p">);</span>
+
+      <span class="k">return</span> <span class="nx">result</span> <span class="o">?</span> <span class="nx">result</span><span class="p">[</span> <span class="mi">1</span> <span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;div&#39;</span><span class="p">;</span>
     <span class="p">};</span>
     </pre></div>
       </td>
@@ -722,7 +724,7 @@ Unifies API for builder when working with expressions or single tags.</p>
       <td class=code>
         <div class='highlight'><pre>    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
   <span class="p">};</span>
-  <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">VERSION</span> <span class="o">=</span> <span class="s1">&#39;1.0&#39;</span>
+  <span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">build</span><span class="p">.</span><span class="nx">VERSION</span> <span class="o">=</span> <span class="s1">&#39;1.1&#39;</span>
 <span class="p">}</span> <span class="p">)(</span> <span class="nx">jQuery</span> <span class="p">);</span></pre></div>
       </td>
     </tr>
