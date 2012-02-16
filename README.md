@@ -136,3 +136,14 @@ $( '#context' ).build( function( )
   
 $( '#context' ).html( ); // <body><div><ul><li><a class="text">Hello World</a></li></ul></div></body>
 ```
+
+If the tag name is omitted but a class or id is present it will infer a `div` element, for example:
+
+```javascript
+$( '#context' ).build( function( )
+{
+  this( '.foo', 'Hello, Foo!!!' );
+} );
+
+$( '#context' ).html( ); // <div class="foo">Hello, Foo!!!</div>
+```
