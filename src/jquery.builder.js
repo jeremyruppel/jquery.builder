@@ -264,5 +264,5 @@
     // Return jquery for chaining
     return this;
   };
-  $.fn.build.VERSION = '1.0'
+  $.fn.build.VERSION = '1.1'
 } )( jQuery );
