@@ -130,7 +130,7 @@
   };
   
   // Regexp for finding a tag name in an expression
-  var tagNameExprPattern = /([\w-_]+)[\.#]?/;
+  var tagNameExprPattern = /^([\w-_]+)[\.#]?/;
   // Regexp for finding a class in an expression
   var classExprPattern   = /\.([\w-_]+)/g;
   // Regexp for finding an id in an expression
@@ -160,8 +160,10 @@
     var extractTagName = function( expr )
     {
       resetRegexp( tagNameExprPattern );
-      
-      return tagNameExprPattern.exec( expr )[ 1 ];
+
+      var result = tagNameExprPattern.exec( expr );
+
+      return result ? result[ 1 ] : 'div';
     };
     
     // Extract the tag id from the expression

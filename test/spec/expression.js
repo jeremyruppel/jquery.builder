@@ -183,9 +183,19 @@ describe( 'when using expressions', function( )
               } );
             } );
           } );
-
+        
           expect( $( '#test' ).html( ) ).toEqual( '<foo class="one"><bar class="two"><baz class="three"><qux class="four">Hello World!!!</qux></baz></bar></foo>' );
         } );
+
+        it ( 'should implicitly infer a div element when it is omitted', function( ) 
+        {
+          $( '#test' ).build( function( ) {
+            this('.foo', 'Hi there');
+          } );
+
+          expect($( '#test' ).html( )).toEqual( '<div class="foo">Hi there</div>' );
+        } );
+        
       } );
       describe( 'using ids', function( )
       {
